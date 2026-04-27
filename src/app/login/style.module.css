@@ -1,0 +1,9 @@
+.login {
+    display: flex;
+    justify-content: center;
+    justify-items: end;
+    padding-top: 10px;
+    background-color: brown;
+    color: white;
+    min-height: 100px;
+}
