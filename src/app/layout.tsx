@@ -25,15 +25,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <header>
-        <ul>
-          <li><Link href='/login'> login</Link></li>
-        </ul>
-        <ul>
-          <li><Link href='/prikol'> prikol</Link></li>
-        </ul>
-      </header>
-      <body>{children}</body>
+
+      <body>
+        <header>
+          <ul>
+            <li><Link href='/login'> login</Link></li>
+          </ul>
+          <ul>
+            <li><Link href='/prikol'> prikol</Link></li>
+          </ul>
+        </header>
+        {children}
+      </body>
     </html>
   );
 }
