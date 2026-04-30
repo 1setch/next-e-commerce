@@ -11,6 +11,7 @@ export interface FilterParams {
   sort?: "price-asc" | "price-desc" | "rating" | "newest" | "popular";
   page?: number;
   limit?: number;
+  search?: string;
 }
 
 export function filterProducts(products: Product[], filters: FilterParams) {
@@ -23,6 +24,7 @@ export function filterProducts(products: Product[], filters: FilterParams) {
     sort = "newest",
     page = 1,
     limit = 9,
+    search,
   } = filters;
 
   // 1. Фильтрация
@@ -51,6 +53,11 @@ export function filterProducts(products: Product[], filters: FilterParams) {
     if (maxPrice !== undefined && actualPrice > maxPrice) return false;
     return true;
   });
+  if (search) {
+    filtered = filtered.filter((p) =>
+      p.name.toLowerCase().includes(search.toLowerCase()),
+    );
+  }
 
   // 2. Сортировка
   switch (sort) {

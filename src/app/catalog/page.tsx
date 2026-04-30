@@ -56,6 +56,8 @@ const CatalogPage = () => {
     const totalPages = data?.totalPages || 1;
     const startItem = (currentPage - 1) * 9 + 1;
     const endItem = Math.min(currentPage * 9, data?.total || 0);
+    const searchQuery = searchParams.get('search') || '';
+
 
     if (isLoading) {
         return (
@@ -85,7 +87,9 @@ const CatalogPage = () => {
                 <Breadcrumbs />
 
                 <div className={styles.topBar}>
-                    <h2 className={styles.title}>Casual</h2>
+                    <h2 className={styles.title}>
+                        {searchQuery ? `Search results for "${searchQuery}"` : 'Casual'}
+                    </h2>
                     <div className={styles.topRight}>
                         <span className={styles.showing}>
                             Showing {startItem}-{endItem} of {data?.total} Products

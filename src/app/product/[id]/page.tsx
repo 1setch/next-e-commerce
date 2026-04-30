@@ -3,10 +3,12 @@
 import Container from '@/components/layout/Container/Container';
 import ProductGallery from '@/components/product/ProductGallery/ProductGallery';
 import ProductInfo from '@/components/product/ProductInfo/ProductInfo';
+import ProductTabs from '@/components/product/ProductTabs/ProductTabs';
+import RecommendedProducts from '@/components/product/RecommendedProducts/RecommendedProducts';
+import Breadcrumbs from '@/components/catalog/Breadcrumbs/Breadcrumbs';
 import { mockProducts } from '@/lib/data/products';
 import { notFound } from 'next/navigation';
 import styles from './page.module.css';
-import Breadcrumbs from '@/components/catalog/Breadcrumbs/Breadcrumbs';
 
 interface ProductPageProps {
   params: Promise<{ id: string }>;
@@ -24,7 +26,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   return (
     <section>
-      
       <Container>
         <Breadcrumbs />
         <div className={styles.product}>
@@ -42,8 +43,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
             sizes={product.sizes}
           />
         </div>
-        <div></div>  {/* второй блок — потом */}
-        <div></div>  {/* рекомендованные — потом */}
+        <ProductTabs
+          description={product.description}
+        />
+        <RecommendedProducts
+          category={product.category}
+          currentProductId={product.id}
+        />
       </Container>
     </section>
   );

@@ -1,0 +1,137 @@
+/* components/product/ProductTabs/ProductTabs.module.css */
+.tabs {
+  margin-top: 60px;
+}
+
+.tabList {
+  display: flex;
+  gap: 0;
+}
+
+.tab {
+  padding: 16px 32px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: var(--color-gray-400);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: var(--color-black);
+}
+
+.tabActive {
+  color: var(--color-black);
+  border-bottom-color: var(--color-black);
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--color-gray-200);
+  margin: 0;
+}
+
+.content {
+  padding: 24px 0;
+}
+
+.details {
+  max-width: 600px;
+  line-height: 1.6;
+  color: var(--color-gray-600);
+}
+
+.details ul {
+  margin-top: 16px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.review {
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.reviewUser {
+  font-weight: 600;
+}
+
+.reviewRating {
+  color: #f5a623;
+}
+
+.empty {
+  color: var(--color-gray-400);
+  text-align: center;
+  padding: 40px 0;
+}
+
+.writeReview {
+  margin-top: 16px;
+  padding: 10px 24px;
+  background: var(--color-black);
+  color: var(--color-white);
+  border: none;
+  border-radius: 62px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.faq {
+  max-width: 600px;
+}
+
+.faqItem {
+  border-bottom: 1px solid var(--color-gray-100);
+  padding: 16px 0;
+}
+
+.faqItem summary {
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faqItem summary::after {
+  content: '+';
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.faqItem[open] summary::after {
+  content: '−';
+}
+
+.faqItem p {
+  margin-top: 12px;
+  color: var(--color-gray-600);
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .tab {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}

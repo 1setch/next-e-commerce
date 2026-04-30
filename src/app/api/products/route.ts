@@ -17,6 +17,7 @@ export async function GET(request: NextRequest) {
     const maxPrice = searchParams.get('maxPrice') ? Number(searchParams.get('maxPrice')) : undefined;
     const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
     const limit = searchParams.get('limit') ? Number(searchParams.get('limit')) : 9;
+    const search = searchParams.get('search') || undefined;
 
     const result = filterProducts(mockProducts, {
       category,
@@ -27,6 +28,7 @@ export async function GET(request: NextRequest) {
       maxPrice,
       page,
       limit,
+      search,
     });
 
     return NextResponse.json(result);
