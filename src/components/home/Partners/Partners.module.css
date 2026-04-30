@@ -1,0 +1,8 @@
+.partners{
+    background: var(--color-black); 
+    height: 122px;   
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    gap: 100px;
+}

@@ -1,0 +1,35 @@
+.selector {
+    min-width: 170px;
+    max-width: 180px;
+    width: fit-content;
+    height: 52px;
+    background: var(--color-gray-100);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: var(--border-radius-big);
+    font-weight: 600;
+
+    button {
+        width: 60px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+
+        &:hover {
+            background: #c4c59f;
+        }
+
+
+    }
+
+    .incr {
+        border-radius: 0px var(--border-radius-big) var(--border-radius-big) 0px;
+    }
+
+    .decr {
+        border-radius: var(--border-radius-big) 0px 0px var(--border-radius-big);
+    }
+}

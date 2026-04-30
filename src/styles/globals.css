@@ -1,4 +1,4 @@
-@import url("./normalize");
+@import url("./normalize.css");
 
 :root {
   --color-gray-100: #F0F0F0;
@@ -12,9 +12,16 @@
   --color-yellow: #FFC633;
 
   --container-padding-x:100px;
+  --container-width:1440px;
 
   --border-radius-big:62px;
   --border-radius-medium:40px;
   --border-radius-small:20px;
 
+
+
+
+  @media (max-width: 768px) {
+        --container-padding-x: 16px;
+    }
 }

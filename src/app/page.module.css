@@ -1,0 +1,9 @@
+
+
+.prod_hr{
+    margin-inline: auto;
+    max-width: 1200px;
+    width: 100%;
+    height: 1px;
+    background: #00000010;
+}

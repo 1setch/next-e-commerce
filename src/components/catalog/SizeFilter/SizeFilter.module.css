@@ -1,0 +1,27 @@
+/* components/catalog/SizeFilter/SizeFilter.module.css */
+.sizes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 62px;
+    border: 1px solid var(--color-gray-300);
+    background: var(--color-gray-100);
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--color-gray-600);
+    transition: all 0.2s;
+}
+
+.btn:hover {
+    border-color: var(--color-black);
+}
+
+.active {
+    background: var(--color-black);
+    color: var(--color-white);
+    border-color: var(--color-black);
+}

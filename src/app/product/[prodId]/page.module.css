@@ -1,0 +1,13 @@
+.slider {
+    width: 610px;
+    height: 530px;
+    border-radius: var(--border-radius-medium);
+    background: #582424;
+    flex-shrink:0;
+}
+/* app/product/[id]/page.module.css */
+.product {
+    display: flex;
+    gap: 40px;
+    padding-top: 36px;
+}

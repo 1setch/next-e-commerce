@@ -1,0 +1,26 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .img_wrap {
+        border-radius: var(--border-radius-small);
+        background: var(--color-gray-300);
+        
+        height: 298px;
+        width: 295px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .img {
+            border-radius: var(--border-radius-small);
+            height: 90%;
+            width: 90%;
+        }
+    }
+
+    .title{
+        padding-top: 8px;
+    }
+}
