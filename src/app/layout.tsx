@@ -3,6 +3,7 @@ import Header from "@/components/layout/Header/Header";
 import { Roboto } from 'next/font/google';
 import Footer from "@/components/layout/Footer/Footer";
 import Providers from "@/providers/Providers";
+import Toast from "@/components/ui/Toast/Toast";
 
 const roboto = Roboto({
   subsets: ['latin', 'cyrillic'],
@@ -22,6 +23,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <Toast />
           <Footer />
         </Providers>
       </body>
