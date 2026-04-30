@@ -1,34 +1,28 @@
 // components/catalog/SizeFilter/SizeFilter.tsx
 'use client';
-import { useState } from 'react';
+
+import { allSizes } from '@/lib/data/products';
 import styles from './SizeFilter.module.css';
 
-const sizes = ['XX-Small', 'X-Small', 'Small', 'Medium', 'Large', 'X-Large', 'XX-Large', '3X-Large', '4X-Large'];
+interface SizeFilterProps {
+  selected: string;
+  onSelect: (size: string) => void;
+}
 
-const SizeFilter = () => {
-    const [selected, setSelected] = useState<string[]>([]);
-
-    const toggle = (size: string) => {
-        setSelected(prev => 
-            prev.includes(size) 
-                ? prev.filter(s => s !== size) 
-                : [...prev, size]
-        );
-    };
-
-    return (
-        <div className={styles.sizes}>
-            {sizes.map((size) => (
-                <button
-                    key={size}
-                    className={`${styles.btn} ${selected.includes(size) ? styles.active : ''}`}
-                    onClick={() => toggle(size)}
-                >
-                    {size}
-                </button>
-            ))}
-        </div>
-    );
+const SizeFilter = ({ selected, onSelect }: SizeFilterProps) => {
+  return (
+    <div className={styles.sizes}>
+      {allSizes.map((size) => (
+        <button
+          key={size}
+          className={`${styles.btn} ${size === selected ? styles.active : ''}`}
+          onClick={() => onSelect(size === selected ? '' : size)}
+        >
+          {size}
+        </button>
+      ))}
+    </div>
+  );
 };
 
 export default SizeFilter;

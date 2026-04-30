@@ -120,23 +120,29 @@
     flex: 1;
 }
 
+.reviewCount {
+    font-size: 14px;
+    color: var(--color-gray-500);
+    margin-left: 8px;
+}
+
 @media (max-width: 768px) {
     .title {
         font-size: 24px;
     }
-    
+
     .price {
         font-size: 24px;
     }
-    
+
     .originalPrice {
         font-size: 18px;
     }
-    
+
     .addtocart {
         flex-direction: column;
     }
-    
+
     .btn {
         width: 100%;
     }

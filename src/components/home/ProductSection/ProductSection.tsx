@@ -1,29 +1,42 @@
+// components/home/ProductSection/ProductSection.tsx
+
 import Container from '@/components/layout/Container/Container';
-import styles from './ProductSection.module.css'
+import styles from './ProductSection.module.css';
 import ProductCard from '@/components/product/ProductCard/ProductCard';
 import Button from '@/components/ui/Button/Button';
+import { Product } from '@/lib/data/products';
 
 interface ProductSectionProps {
-    title: string;
+  title: string;
+  products: Product[];
 }
 
-const ProductSection = ({ title }: ProductSectionProps) => {
-    return (
-        <Container>
-            <section className={styles.prod_section}>
-                <h3 className={styles.title}>{title} </h3>
-                <div className={styles.prods}>
-                    <ProductCard id={1} name="T-SHIRT WITH TAPE DETAILS" rating="4.5/5" price="120" />
-                    <ProductCard id={2} name="SKINNY FIT JEANS" rating="3.5/5" price="240" />
-                    <ProductCard id={3} name="CHECKERED SHIRT" rating="4.5/5" price="180" />
-                    <ProductCard id={4} name="SLEEVE STRIPED T-SHIRT" rating="4.5/5" price="130" />
-                </div>
-                <Button variant='light' className={styles.btn}>
-                    View All
-                </Button>
-            </section>
-        </Container>
-    );
+const ProductSection = ({ title, products }: ProductSectionProps) => {
+    products = products.slice(0,4);
+  return (
+    <Container>
+      <section className={styles.prod_section}>
+        <h3 className={styles.title}>{title}</h3>
+        <div className={styles.prods}>
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              rating={String(product.rating)}
+              price={String(product.discountPrice ?? product.price)}
+              discountPrice={product.discountPrice}
+              originalPrice={product.price}
+              image={product.images[0]}
+            />
+          ))}
+        </div>
+        <Button variant="light" className={styles.btn}>
+          View All
+        </Button>
+      </section>
+    </Container>
+  );
 };
 
 export default ProductSection;

@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
-import Link from 'next/link';
 import "../styles/globals.css";
 import Header from "@/components/layout/Header/Header";
 import { Roboto } from 'next/font/google';
 import Footer from "@/components/layout/Footer/Footer";
+import Providers from "@/providers/Providers";
 
 const roboto = Roboto({
   subsets: ['latin', 'cyrillic'],
@@ -20,9 +19,11 @@ export default function RootLayout({
     <html lang="en" className={`${roboto.variable}`}>
 
       <body className={roboto.className}>
-        <Header />
-        {children}
-        <Footer/>
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

@@ -62,11 +62,11 @@
     .grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .filterBtn {
         display: flex;
     }
-    
+
     .sidebarWrapper {
         position: fixed;
         left: -100%;
@@ -76,22 +76,22 @@
         overflow-y: auto;
         transition: left 0.3s ease;
     }
-    
+
     .sidebarOpen {
         left: 0;
     }
-    
+
     .mobileOverlay {
         display: block;
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.4);
+        background: rgba(0, 0, 0, 0.4);
         z-index: 999;
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s;
     }
-    
+
     .overlayOpen {
         opacity: 1;
         visibility: visible;
@@ -104,12 +104,26 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
     }
-    
+
     .showing {
         display: none;
     }
-    
+
     .title {
         font-size: 24px;
     }
+}
+
+.loading,
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    font-size: 18px;
+    color: var(--color-gray-500);
+}
+
+.error {
+    color: #FF3333;
 }
