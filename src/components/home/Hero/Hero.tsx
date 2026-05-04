@@ -5,6 +5,7 @@ import Image from 'next/image';
 import people from '@/assets/people_xl.png'
 import Button from '@/components/ui/Button/Button';
 import StatCard from './StatCard';
+import Link from 'next/link';
 
 const Hero = () => {
     return (
@@ -18,10 +19,12 @@ const Hero = () => {
                             </h1>
                             <span className={styles.description}>
                                 Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
-                            </span>
-                            <Button variant='default' className={styles.button}>
-                                Shop Now
-                            </Button>
+                            </span><Link href={'/catalog'}>
+                                <Button variant='default' className={styles.button}>
+                                    Shop Now
+                                </Button>
+                            </Link>
+
                         </div>
                         <div className={styles.goals}>
                             <StatCard value="200+" label="International Brands" />

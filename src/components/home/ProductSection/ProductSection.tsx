@@ -1,5 +1,6 @@
 // components/home/ProductSection/ProductSection.tsx
 
+import Link from 'next/link';
 import Container from '@/components/layout/Container/Container';
 import styles from './ProductSection.module.css';
 import ProductCard from '@/components/product/ProductCard/ProductCard';
@@ -9,16 +10,16 @@ import { Product } from '@/lib/data/products';
 interface ProductSectionProps {
   title: string;
   products: Product[];
+  linkHref?: string;
 }
 
-const ProductSection = ({ title, products }: ProductSectionProps) => {
-    products = products.slice(0,4);
+const ProductSection = ({ title, products, linkHref }: ProductSectionProps) => {
   return (
     <Container>
       <section className={styles.prod_section}>
         <h3 className={styles.title}>{title}</h3>
         <div className={styles.prods}>
-          {products.map((product) => (
+          {products.slice(0,4).map((product) => (
             <ProductCard
               key={product._id}
               id={product._id}
@@ -27,13 +28,17 @@ const ProductSection = ({ title, products }: ProductSectionProps) => {
               price={String(product.discountPrice ?? product.price)}
               discountPrice={product.discountPrice}
               originalPrice={product.price}
-              image={product.images[0]}
+              image={product.images?.[0]}
             />
           ))}
         </div>
-        <Button variant="light" className={styles.btn}>
-          View All
-        </Button>
+        {linkHref && (
+          <Link href={linkHref}>
+            <Button variant="light" className={styles.btn}>
+              View All
+            </Button>
+          </Link>
+        )}
       </section>
     </Container>
   );
