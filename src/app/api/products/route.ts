@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
       filter["colors.name"] = { $in: colors };
     }
     if (size) filter.sizes = size;
-    if (search) filter.name = { $regex: search, $options: "i" };
+    if (search) filter.name = { $regex: search, $options: 'i' };
 
     let sortObj: Record<string, 1 | -1> = {};
     switch (sort) {

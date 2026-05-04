@@ -17,6 +17,10 @@
     display: flex;
     align-items: center;
     gap: 16px;
+
+    button{
+        width: fit-content;
+    }
 }
 
 .showing {

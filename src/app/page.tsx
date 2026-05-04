@@ -24,9 +24,9 @@ export default async function HomePage() {
     <div>
       <Hero />
       <Partners />
-      <ProductSection title="NEW ARRIVALS" products={newArrivals} />
+      <ProductSection title="NEW ARRIVALS" products={newArrivals} linkHref="/catalog?isNew=true" />
       <div className={styles.prod_hr} />
-      <ProductSection title="TOP SELLING" products={topSelling} />
+      <ProductSection title="TOP SELLING" products={topSelling} linkHref="/catalog?sort=popular" />
     </div>
   );
 }
