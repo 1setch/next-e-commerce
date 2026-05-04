@@ -5,8 +5,10 @@
     text-decoration: none;
     color: inherit;
     width: 100%;
+    min-width: 160px;
+
     /* вместо fit-content */
-    min-width: 0;
+    
     /* важно для предотвращения переполнения */
 }
 

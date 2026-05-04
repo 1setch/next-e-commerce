@@ -185,3 +185,15 @@
 .error {
     color: #FF3333;
 }
+
+/* Добавь это правило */
+@media (max-width: 1024px) {
+    .sidebarWrapper {
+        display: none; /* скрываем обёртку полностью, а не только сайдбар */
+    }
+    
+    /* Альтернатива — если нужно сохранить overlay, то вместо display: none */
+    /* .sidebarWrapper:not(.sidebarOpen) {
+        display: none;
+    } */
+}
