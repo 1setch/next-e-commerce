@@ -27,6 +27,8 @@ const fetchProducts = async (searchParams: URLSearchParams): Promise<ProductsRes
   return res.json();
 };
 
+export const dynamic = 'force-dynamic';
+
 function CatalogContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
