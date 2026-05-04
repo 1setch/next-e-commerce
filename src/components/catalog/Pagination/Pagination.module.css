@@ -1,0 +1,44 @@
+/* components/catalog/Pagination/Pagination.module.css */
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 40px 0 20px;
+}
+
+.btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--color-gray-200);
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-black);
+    transition: all 0.2s;
+}
+
+.btn:hover:not(:disabled):not(.dots):not(.active) {
+    border-color: var(--color-black);
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.active {
+    background: var(--color-black);
+    color: var(--color-white);
+    border-color: var(--color-black);
+}
+
+.dots {
+    border: none;
+    cursor: default;
+}

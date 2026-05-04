@@ -1,0 +1,287 @@
+.header {
+    background: var(--color-white);
+    height: 96px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    display: flex;
+
+    @media (max-width: 768px) {
+        height: 66px;
+        gap: 20px;
+    }
+
+    .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        max-width: 310px;
+        width: 100%;
+        gap: 24px;
+        flex-direction: row;
+
+        @media (max-width: 1024px) {
+            display: none;
+        }
+
+    }
+
+    .search {
+        width: 100%;
+
+        @media (max-width: 600px) {
+            display: none;
+        }
+    }
+
+    .profile {
+        flex-shrink: 0;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        gap: 14px;
+
+        @media (max-width: 600px) {
+            margin-left: auto;
+        }
+
+        .search_btn {
+            color: var(--color-black);
+            display: none;
+
+            @media (max-width: 600px) {
+                display: block;
+            }
+        }
+
+
+    }
+
+    .logo {
+        flex-shrink: 0;
+    }
+}
+
+.promo {
+    width: 100%;
+    color: var(--color-white);
+    background: var(--color-black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 100px;
+    font-size: 14px;
+    height: 38px;
+
+    animation: slideDown 0.3s ease-out;
+
+    @media (max-width: 768px) {
+        padding-inline: 16px;
+        font-size: 12px;
+        height: 32px;
+    }
+
+    span {
+        text-decoration: underline;
+    }
+
+    .text {
+        margin-left: auto;
+    }
+
+
+
+
+    .promo_button {
+        width: fit-content;
+        margin-left: auto;
+        padding: 8px;
+        height: 80%;
+    }
+
+    &.promoClosing {
+        animation: slideUp 0.3s ease-in forwards;
+    }
+
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+        max-height: 100px;
+    }
+
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+        max-height: 0;
+        padding: 0;
+        margin: 0;
+        display: none;
+    }
+}
+
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Бургер кнопка - по умолчанию скрыта */
+.burger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    flex-shrink: 0;
+}
+
+.burger span {
+    width: 100%;
+    height: 2px;
+    background: black;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Оверлей */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 999;
+}
+
+.overlayOpen {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Мобильная навигация */
+.mobileNav {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background: var(--color-white);
+    z-index: 1000;
+    transition: left 0.3s ease-in-out;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    padding-top: 96px;
+}
+
+.mobileNav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: none;
+    width: 100%;
+}
+
+.mobileNav ul li {
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    list-style: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.mobileNav ul li:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.mobileNavOpen {
+    left: 0;
+}
+
+/* Планшеты и мобильные устройства */
+@media (max-width: 1024px) {
+
+    /* Показываем бургер */
+    .burger {
+        display: flex;
+    }
+
+    /* Скрываем обычную навигацию */
+    .header ul.nav {
+        display: none;
+    }
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .mobileNav {
+        padding-top: 66px;
+    }
+}
+
+.cartBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.cartBadge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background: var(--color-black);
+  color: var(--color-white);
+  border-radius: 50%;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.search {
+  position: relative;
+  width: 100%;
+}
+
+.searchLoader {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-gray-200);
+  border-top-color: var(--color-black);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}

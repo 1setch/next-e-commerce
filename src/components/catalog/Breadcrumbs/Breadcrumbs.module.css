@@ -1,0 +1,27 @@
+/* components/catalog/Breadcrumbs/Breadcrumbs.module.css */
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--color-gray-500);
+    padding: 20px 0;
+}
+
+.link {
+    color: var(--color-gray-500);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.link:hover {
+    color: var(--color-black);
+}
+
+.separator {
+    color: var(--color-gray-400);
+}
+
+.current {
+    color: var(--color-black);
+}

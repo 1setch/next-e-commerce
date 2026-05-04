@@ -1,0 +1,29 @@
+.prod_section {
+    padding-top: 70px;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .title {
+        font-size: 48px;
+        padding-bottom: 56px;
+        font-weight: 700;
+    }
+
+    .prods {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        /* Меняем hidden на auto */
+        width: 100%;
+        /* Добавляем ширину 100% */
+        scrollbar-width: thin;
+
+    }
+
+    .btn {
+        width: 218px;
+        margin-top: 38px;
+    }
+}

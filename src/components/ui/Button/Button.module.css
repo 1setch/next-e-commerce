@@ -1,0 +1,28 @@
+.button {
+    border-radius: var(--border-radius-big);
+    height: 42px;
+    width: 100%;
+
+
+
+
+
+}
+
+.ghost {
+    background: transparent;
+}
+
+.default {
+    background: var(--color-black);
+    padding-block: 12px;
+    padding-inline: 16px;
+    color: var(--color-white);
+}
+.light {
+    background: var(--color-white);
+    padding-block: 12px;
+    padding-inline: 16px;
+    color: var(--color-black);
+    border: 1 solid #00000010;
+}
