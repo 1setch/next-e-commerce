@@ -33,6 +33,7 @@ const ProductGallery = ({ images, name }: ProductGalleryProps) => {
           src={displayImages[activeIndex]}
           alt={name}
           fill
+          sizes="100vw"
           className={styles.img}
         />
       </div>
