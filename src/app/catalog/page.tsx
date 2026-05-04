@@ -1,7 +1,7 @@
 // app/catalog/page.tsx
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import Container from '@/components/layout/Container/Container';
@@ -27,7 +27,7 @@ const fetchProducts = async (searchParams: URLSearchParams): Promise<ProductsRes
     return res.json();
 };
 
-const CatalogPage = () => {
+const CatalogContent = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
@@ -152,4 +152,18 @@ const CatalogPage = () => {
     );
 };
 
-export default CatalogPage;
+// Основной компонент страницы с Suspense
+export default function CatalogPage() {
+    return (
+        <Suspense fallback={
+            <section>
+                <Container>
+                    <Breadcrumbs />
+                    <div className={styles.loading}>Loading...</div>
+                </Container>
+            </section>
+        }>
+            <CatalogContent />
+        </Suspense>
+    );
+}
