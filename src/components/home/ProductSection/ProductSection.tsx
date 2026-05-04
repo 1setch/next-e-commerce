@@ -20,8 +20,8 @@ const ProductSection = ({ title, products }: ProductSectionProps) => {
         <div className={styles.prods}>
           {products.map((product) => (
             <ProductCard
-              key={product.id}
-              id={product.id}
+              key={product._id}
+              id={product._id}
               name={product.name}
               rating={String(product.rating)}
               price={String(product.discountPrice ?? product.price)}

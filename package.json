@@ -10,15 +10,24 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.100.6",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.10.0",
+    "jose": "^6.2.3",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.2.0",
+    "mongoose": "^9.6.1",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "zustand": "^5.0.12"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "typescript": "^5"

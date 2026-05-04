@@ -1,7 +1,7 @@
 // components/catalog/ColorFilter/ColorFilter.tsx
 'use client';
 
-import { allColors } from '@/lib/data/products';
+import { allColors } from '@/lib/data/colors';
 import styles from './ColorFilter.module.css';
 
 interface ColorFilterProps {

@@ -8,7 +8,7 @@ import PriceRange from '../PriceRange/PriceRange';
 import ColorFilter from '../ColorFilter/ColorFilter';
 import SizeFilter from '../SizeFilter/SizeFilter';
 import Button from '@/components/ui/Button/Button';
-import { categories } from '@/lib/data/products';
+import { categories } from '@/lib/data/categories';
 import styles from './FiltersSidebar.module.css';
 
 const FiltersSidebar = () => {

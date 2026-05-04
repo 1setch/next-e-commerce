@@ -6,13 +6,12 @@ import { useState } from 'react';
 import Button from '@/components/ui/Button/Button';
 import QuantitySelector from '@/components/ui/QuantitySelector/QuantitySelector';
 import { useCartStore } from '@/store/cartStore';
-import { getProductImage } from '@/lib/data/products';
 import { ProductColor } from '@/lib/data/products';
 import styles from './ProductInfo.module.css';
 import { useToastStore } from '@/store/toastStore';
 
 interface ProductInfoProps {
-    id: number;
+    id: string;
     name: string;
     rating: number;
     reviewCount: number;
@@ -22,6 +21,7 @@ interface ProductInfoProps {
     description: string;
     colors: ProductColor[];
     sizes: string[];
+    image?: string;
 }
 
 const ProductInfo = ({
@@ -35,6 +35,7 @@ const ProductInfo = ({
     description,
     colors,
     sizes,
+    image,
 }: ProductInfoProps) => {
     const [selectedColor, setSelectedColor] = useState(0);
     const [selectedSize, setSelectedSize] = useState(sizes[0]);
@@ -46,18 +47,20 @@ const ProductInfo = ({
     const discountPercent = hasDiscount
         ? Math.round(((originalPrice - discountPrice) / originalPrice) * 100)
         : 0;
+    const syncToServer = useCartStore((state) => state.syncToServer);
 
     const handleAddToCart = () => {
         addItem({
             productId: id,
             name,
             price,
-            image: getProductImage(id),
+            image: image || '',
             color: colors[selectedColor].name,
             colorHex: colors[selectedColor].hex,
             size: selectedSize,
             quantity,
         });
+        syncToServer();
         addToast('Added to cart!', 'success');
     };
 

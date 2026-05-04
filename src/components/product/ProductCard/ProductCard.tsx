@@ -3,11 +3,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from './ProductCard.module.css';
-import shirt from '@/../public/shirt.png';
-import { getProductImage } from '@/lib/data/products';
 
 interface ProductCardProps {
-  id: number;
+  id: string;
   name: string;
   rating: string;
   price: string;
@@ -34,7 +32,7 @@ const ProductCard = ({
     <Link href={`/product/${id}`} className={styles.card}>
       <div className={styles.img_wrap}>
         <Image
-          src={image || getProductImage(id)}
+          src={image || ''}
           alt={name}
           className={styles.img}
           width={295}

@@ -8,15 +8,21 @@ import CartSummary from '@/components/cart/CartSummary/CartSummary';
 import { useCartStore } from '@/store/cartStore';
 import Link from 'next/link';
 import styles from './page.module.css';
+import { useEffect, useRef } from 'react';
 
 const CartPage = () => {
     const items = useCartStore((state) => state.items);
+    const fetchServerCart = useCartStore((state) => state.fetchServerCart);
+
+    useEffect(() => {
+        fetchServerCart();
+    }, []); // Только при монтировании
 
     if (items.length === 0) {
         return (
             <section>
                 <Container>
-                    <Breadcrumbs />
+                    <Breadcrumbs items={[{ label: 'Cart' }]} />
                     <h2 className={styles.title}>Your Cart</h2>
                     <div className={styles.empty}>
                         <p>Your cart is empty</p>
@@ -30,16 +36,12 @@ const CartPage = () => {
     return (
         <section>
             <Container>
-                <Breadcrumbs />
+                <Breadcrumbs items={[{ label: 'Cart' }]} />
                 <h2 className={styles.title}>Your Cart</h2>
                 <div className={styles.layout}>
                     <div className={styles.items}>
                         {items.map((item, index) => (
-                            <Link
-                                href={`/product/${item.productId}`}
-                                key={`${item.productId}-${item.color}-${item.size}`}
-                                className={styles.cartItemLink}
-                            >
+                            <div key={`${item.productId}-${item.color}-${item.size}`}>
                                 {index > 0 && <hr className={styles.divider} />}
                                 <CartItem
                                     id={item.productId}
@@ -51,7 +53,7 @@ const CartPage = () => {
                                     image={item.image}
                                     quantity={item.quantity}
                                 />
-                            </Link>
+                            </div>
                         ))}
                     </div>
                     <CartSummary />

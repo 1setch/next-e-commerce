@@ -8,7 +8,7 @@ import styles from './CartItem.module.css';
 import shirt from '@/../public/shirt.png';
 
 interface CartItemProps {
-  id: number;
+  id: string;
   name: string;
   size: string;
   color: string;

@@ -1,7 +1,7 @@
 // components/catalog/SizeFilter/SizeFilter.tsx
 'use client';
 
-import { allSizes } from '@/lib/data/products';
+import { allSizes } from '@/lib/data/sizes';
 import styles from './SizeFilter.module.css';
 
 interface SizeFilterProps {

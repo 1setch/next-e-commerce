@@ -63,7 +63,9 @@ const CatalogPage = () => {
         return (
             <section>
                 <Container>
-                    <Breadcrumbs />
+                    <Breadcrumbs items={[
+                        { label: 'Catalog' }
+                    ]} />
                     <div className={styles.loading}>Loading...</div>
                 </Container>
             </section>
@@ -74,7 +76,9 @@ const CatalogPage = () => {
         return (
             <section>
                 <Container>
-                    <Breadcrumbs />
+                    <Breadcrumbs items={[
+                        { label: 'Catalog' }
+                    ]} />
                     <div className={styles.error}>Failed to load products</div>
                 </Container>
             </section>
@@ -84,7 +88,9 @@ const CatalogPage = () => {
     return (
         <section>
             <Container>
-                <Breadcrumbs />
+                <Breadcrumbs items={[
+                    { label: 'Catalog' }
+                ]} />
 
                 <div className={styles.topBar}>
                     <h2 className={styles.title}>
@@ -123,8 +129,8 @@ const CatalogPage = () => {
                         <div className={styles.grid}>
                             {data?.data.map((product) => (
                                 <ProductCard
-                                    key={product.id}
-                                    id={product.id}
+                                    key={product._id}
+                                    id={product._id}
                                     name={product.name}
                                     rating={String(product.rating)}
                                     price={String(product.discountPrice ?? product.price)}
