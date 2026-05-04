@@ -53,8 +53,35 @@
     margin-top: 24px;
 }
 
+.clearBtn {
+    margin-top: 8px;
+}
+
 @media (max-width: 1024px) {
     .sidebar {
         display: none;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        max-width: 100%;
+        /* вместо 100vw */
+        height: 90vh;
+        z-index: 1001;
+        overflow-y: auto;
+        background: var(--color-white);
+        border-radius: 20px 20px 0 0;
+        padding: 24px 20px;
+        border: none;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+        box-sizing: border-box;
+        top: auto;
+    }
+
+    .sidebarOpen {
+        display: block;
+        transform: translateY(0);
     }
 }

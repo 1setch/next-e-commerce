@@ -11,7 +11,13 @@ import Button from '@/components/ui/Button/Button';
 import { categories } from '@/lib/data/categories';
 import styles from './FiltersSidebar.module.css';
 
-const FiltersSidebar = () => {
+
+interface FiltersSidebarProps {
+    isOpen?: boolean;
+}
+
+
+const FiltersSidebar = ({ isOpen }: FiltersSidebarProps) => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -80,7 +86,7 @@ const FiltersSidebar = () => {
     const hasFilters = localCategory || localColor.length > 0 || localSize || localMinPrice > 0 || localMaxPrice < 500;
 
     return (
-        <aside className={styles.sidebar}>
+        <aside className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}>
             <div className={styles.header}>
                 <h3 className={styles.title}>Filters</h3>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">

@@ -44,10 +44,10 @@ const ProductCard = ({
         ⭐ {rating}
       </div>
       <div className={styles.priceBlock}>
-        <span className={styles.price}>${price}</span>
+        <span className={styles.price}>₽{price}</span>
         {hasDiscount && (
           <>
-            <span className={styles.originalPrice}>${originalPrice}</span>
+            <span className={styles.originalPrice}>₽{originalPrice}</span>
             <span className={styles.discount}>-{discountPercent}%</span>
           </>
         )}

@@ -38,6 +38,15 @@ const Header = () => {
     }
   }, [debouncedSearch, router]);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [isMenuOpen]);
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
@@ -66,7 +75,7 @@ const Header = () => {
               <span></span>
             </button>
 
-            <Link href="/" className={styles.logoLink}>
+            <Link href="/" className={styles.logo}>
               <Image src={logo} alt="Shop.co" className={styles.logo} />
             </Link>
 

@@ -42,3 +42,19 @@
     border: none;
     cursor: default;
 }
+
+/* Добавь в конец файла */
+@media (max-width: 640px) {
+    .pagination {
+        gap: 4px;
+        padding: 20px 0 20px;
+        flex-wrap: wrap;
+        /* если много страниц */
+    }
+
+    .btn {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+}

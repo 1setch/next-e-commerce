@@ -91,7 +91,6 @@ const Footer = () => {
                 </div>
                 <div className={styles.copyright}></div>
 
-                остальное потом похуй
             </Container>
         </footer>
     );

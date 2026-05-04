@@ -19,6 +19,11 @@
         gap: 24px;
         flex-direction: row;
 
+        a{
+            text-decoration: none;
+            color:var(--color-black);
+        }
+
         @media (max-width: 1024px) {
             display: none;
         }
