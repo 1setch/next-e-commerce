@@ -4,28 +4,44 @@
     gap: 8px;
     text-decoration: none;
     color: inherit;
-
-    .img_wrap {
-        border-radius: var(--border-radius-small);
-        background: var(--color-gray-300);
-
-        height: 398px;
-        width: 295px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .img {
-            border-radius: var(--border-radius-small);
-            height: 90%;
-            width: 90%;
-        }
-    }
-
-    .title {
-        padding-top: 8px;
-    }
+    width: 100%;
+    /* вместо fit-content */
+    min-width: 0;
+    /* важно для предотвращения переполнения */
 }
+
+.img_wrap {
+    border-radius: var(--border-radius-small);
+    background: var(--color-gray-300);
+    aspect-ratio: 295 / 398;
+    /* сохраняем пропорции */
+    width: 100%;
+    /* резиновая ширина */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    /* на всякий случай */
+}
+
+.img {
+    border-radius: var(--border-radius-small);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* чтобы изображение красиво вписывалось */
+}
+
+.title {
+    padding-top: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    /* резиновая ширина */
+}
+
+
 
 /* components/product/ProductCard/ProductCard.module.css */
 
