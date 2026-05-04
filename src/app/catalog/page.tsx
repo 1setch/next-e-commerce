@@ -146,18 +146,5 @@ function CatalogContent() {
 }
 
 export default function CatalogPage() {
-  return (
-    <Suspense
-      fallback={
-        <section>
-          <Container>
-            <Breadcrumbs items={[{ label: 'Catalog' }]} />
-            <div className={styles.loading}>Loading...</div>
-          </Container>
-        </section>
-      }
-    >
-      <CatalogContent />
-    </Suspense>
-  );
+  return <CatalogContent />;
 }
