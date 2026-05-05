@@ -1,7 +1,7 @@
 // app/checkout/page.tsx
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Container from '@/components/layout/Container/Container';
 import Breadcrumbs from '@/components/catalog/Breadcrumbs/Breadcrumbs';
@@ -24,7 +24,7 @@ interface AddressForm {
     zip: string;
 }
 
-const CheckoutPage = () => {
+const CheckoutContent = () => {
     const router = useRouter();
     const { items, totalPrice, clearCart } = useCartStore();
     const addToast = useToastStore((state) => state.addToast);
@@ -278,4 +278,18 @@ const CheckoutPage = () => {
     );
 };
 
-export default CheckoutPage;
+// Основной экспорт с Suspense
+export default function CheckoutPage() {
+  return (
+    <Suspense fallback={
+      <section>
+        <Container>
+          <Breadcrumbs items={[{ label: 'Оплата' }]} />
+          <div className={styles.loading}>Loading...</div>
+        </Container>
+      </section>
+    }>
+      <CheckoutContent />
+    </Suspense>
+  );
+}
