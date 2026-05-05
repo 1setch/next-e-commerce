@@ -28,7 +28,7 @@ const FiltersSidebar = ({ isOpen }: FiltersSidebarProps) => {
     );
     const [localSize, setLocalSize] = useState(searchParams.get('size') || '');
     const [localMinPrice, setLocalMinPrice] = useState(Number(searchParams.get('minPrice')) || 0);
-    const [localMaxPrice, setLocalMaxPrice] = useState(Number(searchParams.get('maxPrice')) || 500);
+    const [localMaxPrice, setLocalMaxPrice] = useState(Number(searchParams.get('maxPrice')) || 10000);
 
     // Синхронизация с URL при внешних изменениях (стрелки браузера)
     useEffect(() => {
@@ -36,7 +36,7 @@ const FiltersSidebar = ({ isOpen }: FiltersSidebarProps) => {
         setLocalColor(searchParams.get('color') ? searchParams.get('color')!.split(',') : []);
         setLocalSize(searchParams.get('size') || '');
         setLocalMinPrice(Number(searchParams.get('minPrice')) || 0);
-        setLocalMaxPrice(Number(searchParams.get('maxPrice')) || 500);
+        setLocalMaxPrice(Number(searchParams.get('maxPrice')) || 10000);
     }, [searchParams]);
 
     // Применить все фильтры

@@ -6,24 +6,26 @@
     color: inherit;
     width: 100%;
     min-width: 160px;
-
-    /* вместо fit-content */
-
-    /* важно для предотвращения переполнения */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-4px);
+        
+        .img {
+            transform: scale(1.02);
+        }
+    }
 }
 
 .img_wrap {
     border-radius: var(--border-radius-small);
     background: var(--color-gray-300);
     aspect-ratio: 295 / 398;
-    /* сохраняем пропорции */
     width: 100%;
-    /* резиновая ширина */
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    /* на всякий случай */
 }
 
 .img {
@@ -31,7 +33,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* чтобы изображение красиво вписывалось */
+    transition: transform 0.4s ease;
 }
 
 .title {
@@ -40,12 +42,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
-    /* резиновая ширина */
+    transition: color 0.2s ease;
+    
+    .card:hover & {
+        color: var(--color-gray-700);
+    }
 }
-
-
-
-/* components/product/ProductCard/ProductCard.module.css */
 
 .priceBlock {
     display: flex;
@@ -56,9 +58,14 @@
 .price {
     font-size: 24px;
     font-weight: 700;
+    transition: transform 0.2s ease;
 
     @media (max-width: 640px) {
         font-size: 20px;
+    }
+    
+    .card:hover & {
+        transform: scale(1.02);
     }
 }
 
@@ -76,14 +83,20 @@
     padding: 6px 14px;
     border-radius: 62px;
     font-weight: 500;
+    transition: all 0.2s ease;
 
     @media (max-width: 640px) {
         font-size: 10px;
     }
+    
+    .card:hover & {
+        background: rgba(255, 51, 51, 0.15);
+        transform: scale(1.02);
+    }
 }
 
-.rating{
+.rating {
     display: flex;
     align-items: center;
-    gap: 12px;    
+    gap: 12px;
 }
