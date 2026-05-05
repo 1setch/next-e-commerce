@@ -13,6 +13,7 @@ import styles from './page.module.css';
 import { useSearchParams } from 'next/navigation';
 import { validatePromo } from '@/lib/data/promoCodes';
 
+export const dynamic = 'force-dynamic';
 
 interface AddressForm {
     name: string;
