@@ -1,9 +1,12 @@
 /* app/admin/page.module.css */
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 40px 0 24px;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .header h2 {
@@ -11,10 +14,18 @@
   font-weight: 700;
 }
 
+/* Таблица */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 24px;
+  min-width: 600px;
 }
 
 .table th,
@@ -29,6 +40,7 @@
   font-weight: 600;
   color: var(--color-gray-500);
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .table td {
@@ -45,7 +57,7 @@
   gap: 8px;
 }
 
-/* Modal */
+/* Модальное окно */
 .modal {
   position: fixed;
   inset: 0;
@@ -85,6 +97,7 @@
   font-size: 24px;
   cursor: pointer;
   color: var(--color-gray-500);
+  padding: 4px 8px;
 }
 
 .form {
@@ -210,4 +223,91 @@
   display: flex;
   gap: 12px;
   margin-top: 8px;
+}
+
+/* Мобилка */
+@media (max-width: 768px) {
+  .header {
+    padding: 24px 0 16px;
+  }
+
+  .header h2 {
+    font-size: 24px;
+  }
+
+  .modal {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modalContent {
+    border-radius: 20px 20px 0 0;
+    padding: 24px 20px;
+    max-height: 95vh;
+  }
+
+  .modalHeader h3 {
+    font-size: 20px;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .chips {
+    gap: 6px;
+  }
+
+  .chip {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .checkboxes {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .formActions {
+    flex-direction: column;
+  }
+
+  .formActions button {
+    width: 100%;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    max-width: 100px;
+  }
+
+  .table img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* Очень узкие */
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header h2 {
+    font-size: 20px;
+  }
+
+  .table th:nth-child(4),
+  .table td:nth-child(4) {
+    display: none; /* скрываем колонку Category */
+  }
 }

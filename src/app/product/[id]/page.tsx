@@ -20,7 +20,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   if (!product) notFound();
 
-  const p = { ...product, _id: String(product._id) } as any;
+  const p = {
+    ...product,
+    _id: String(product._id),
+    colors: product.colors.map((c: any) => ({ name: c.name, hex: c.hex })),
+    images: product.images || [],
+  } as any;
   const actualPrice = p.discountPrice ?? p.price;
 
   return (
@@ -28,7 +33,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <Container>
         <Breadcrumbs
           items={[
-            { label: 'Catalog', href: '/catalog' },
+            { label: 'Каталог', href: '/catalog' },
             { label: p.category, href: `/catalog?category=${p.category}` },
             { label: p.name },
           ]}

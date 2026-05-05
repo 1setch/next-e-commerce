@@ -2,7 +2,7 @@
 .breadcrumbs {
     display: flex;
     align-items: center;
-    gap: 8px;
+    /* gap: 8px; */
     font-size: 14px;
     color: var(--color-gray-500);
     padding: 20px 0;
@@ -20,6 +20,7 @@
 
 .separator {
     color: var(--color-gray-400);
+    padding-inline: 5px;
 }
 
 .current {

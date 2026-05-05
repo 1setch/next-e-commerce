@@ -264,33 +264,35 @@ const AdminPage = () => {
                     </div>
                 )}
 
-                <table className={styles.table}>
-                    <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Price</th>
-                            <th>Category</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {products.map((product) => (
-                            <tr key={product._id}>
-                                <td>
-                                    <img src={product.images[0] || '/shirt.png'} alt="" width={50} height={50} />
-                                </td>
-                                <td>{product.name}</td>
-                                <td>${product.price}</td>
-                                <td>{product.category}</td>
-                                <td className={styles.actions}>
-                                    <Button variant="ghost" onClick={() => handleEdit(product)}>Edit</Button>
-                                    <Button variant="ghost" onClick={() => handleDelete(product._id)}>Delete</Button>
-                                </td>
+                <div className={styles.tableWrapper}>
+                    <table className={styles.table}>
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Category</th>
+                                <th>Actions</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {products.map((product) => (
+                                <tr key={product._id}>
+                                    <td>
+                                        <img src={product.images[0] || '/shirt.png'} alt="" width={50} height={50} />
+                                    </td>
+                                    <td>{product.name}</td>
+                                    <td>${product.price}</td>
+                                    <td>{product.category}</td>
+                                    <td className={styles.actions}>
+                                        <Button variant="ghost" onClick={() => handleEdit(product)}>Edit</Button>
+                                        <Button variant="ghost" onClick={() => handleDelete(product._id)}>Delete</Button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </Container>
         </section>
     );

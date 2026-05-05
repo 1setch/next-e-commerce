@@ -21,7 +21,7 @@ const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
 
   return (
     <div className={styles.breadcrumbs}>
-      <Link href="/" className={styles.link}>Home</Link>
+      <Link href="/" className={styles.link}>Главная</Link>
       {crumbs.map((item, index) => (
         <span key={index}>
           <span className={styles.separator}>›</span>
