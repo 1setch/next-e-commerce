@@ -35,7 +35,7 @@ const ProductSection = ({ title, products, linkHref }: ProductSectionProps) => {
         {linkHref && (
           <Link href={linkHref}>
             <Button variant="light" className={styles.btn}>
-              View All
+              Смотреть все
             </Button>
           </Link>
         )}

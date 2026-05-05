@@ -12,8 +12,8 @@ const PromoBar = () => {
     return (
         <div className={styles.promo}>
             <div className={styles.text}>
-                Sign up and get 20% off to your first order.
-                <span> Sign Up Now</span>
+                Скидка 20% на ваш первый заказ.
+                <span> Войти </span>
             </div>
             <Button variant='ghost' className={styles.promo_button}  onClick={togglePromoBar}>
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">

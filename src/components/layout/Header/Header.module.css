@@ -19,9 +19,9 @@
         gap: 24px;
         flex-direction: row;
 
-        a{
+        a {
             text-decoration: none;
-            color:var(--color-black);
+            color: var(--color-black);
         }
 
         @media (max-width: 1024px) {
@@ -91,6 +91,8 @@
 
     .text {
         margin-left: auto;
+        display: flex;
+        gap: 8px;
     }
 
 
@@ -241,52 +243,61 @@
 }
 
 .cartBtn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  background: none;
-  border: none;
-  cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+    background: none;
+    border: none;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    align-self: center;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+        padding: 2px;
+    }
+
 }
 
 .cartBadge {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20px;
-  height: 20px;
-  background: var(--color-black);
-  color: var(--color-white);
-  border-radius: 50%;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background: var(--color-black);
+    color: var(--color-white);
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
 }
 
 .search {
-  position: relative;
-  width: 100%;
+    position: relative;
+    width: 100%;
 }
 
 .searchLoader {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--color-gray-200);
-  border-top-color: var(--color-black);
-  border-radius: 50%;
-  animation: spin 0.6s linear infinite;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--color-gray-200);
+    border-top-color: var(--color-black);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
 }
 
 @keyframes spin {
-  to {
-    transform: translateY(-50%) rotate(360deg);
-  }
+    to {
+        transform: translateY(-50%) rotate(360deg);
+    }
 }

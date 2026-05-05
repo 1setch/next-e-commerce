@@ -1,8 +1,61 @@
-.partners{
-    background: var(--color-black); 
-    height: 122px;   
+.partners {
+    background: var(--color-black);
+    height: 122px;
     display: flex;
-    justify-content: center;
-    justify-items: center;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+}
+
+.marqueeContainer {
+    width: 100%;
+    overflow: hidden;
+}
+
+.marqueeTrack {
+    display: flex;
+    align-items: center;
     gap: 100px;
+    animation: scroll 30s linear infinite;
+    width: fit-content;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0); /* аппаратное ускорение */
+}
+
+.marqueeItem {
+    flex-shrink: 0;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-20%); /* 100% / 4 дубля */
+    }
+}
+
+.marqueeContainer:hover .marqueeTrack {
+    animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+    .partners {
+        height: 80px;
+    }
+    .marqueeTrack {
+        gap: 48px;
+    }
+}
+
+.marqueeTrack {
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+}
+
+.marqueeItem {
+    flex-shrink: 0;
+    transform: translateZ(0);
 }

@@ -4,6 +4,6 @@
   margin: 0 auto;
   padding-inline: var(--container-padding-x);
   position: relative;
-
+  background: transparent;
   
 }

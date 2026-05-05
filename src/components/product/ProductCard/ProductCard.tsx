@@ -42,13 +42,18 @@ const ProductCard = ({
       <span className={styles.title}>{name}</span>
       <div className={styles.rating}>
         ⭐ {rating}
+        {hasDiscount && (
+          <>
+            <span className={styles.discount}>-{discountPercent}%</span>
+          </>
+        )}
       </div>
       <div className={styles.priceBlock}>
         <span className={styles.price}>₽{price}</span>
         {hasDiscount && (
           <>
             <span className={styles.originalPrice}>₽{originalPrice}</span>
-            <span className={styles.discount}>-{discountPercent}%</span>
+            {/* <span className={styles.discount}>-{discountPercent}%</span> */}
           </>
         )}
       </div>
