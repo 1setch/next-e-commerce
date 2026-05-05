@@ -18,10 +18,10 @@ const Hero = () => {
                                 FIND CLOTHES THAT MATCHES YOUR STYLE
                             </h1>
                             <span className={styles.description}>
-                                Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
+                                Ознакомьтесь с нашим разнообразным ассортиментом тщательно сшитой одежды, созданной для того, чтобы подчеркнуть вашу индивидуальность и удовлетворить ваш стиль.
                             </span><Link href={'/catalog'}>
                                 <Button variant='default' className={styles.button}>
-                                    Shop Now
+                                    Перейти в каталог
                                 </Button>
                             </Link>
 

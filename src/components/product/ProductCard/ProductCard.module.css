@@ -8,7 +8,7 @@
     min-width: 160px;
 
     /* вместо fit-content */
-    
+
     /* важно для предотвращения переполнения */
 }
 
@@ -56,6 +56,10 @@
 .price {
     font-size: 24px;
     font-weight: 700;
+
+    @media (max-width: 640px) {
+        font-size: 20px;
+    }
 }
 
 .originalPrice {
@@ -72,4 +76,14 @@
     padding: 6px 14px;
     border-radius: 62px;
     font-weight: 500;
+
+    @media (max-width: 640px) {
+        font-size: 10px;
+    }
+}
+
+.rating{
+    display: flex;
+    align-items: center;
+    gap: 12px;    
 }

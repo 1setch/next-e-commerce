@@ -10,22 +10,32 @@ const Footer = () => {
             <Container>
                 <div className={styles.subscribe}>
                     <h2>
-                        STAY UPTO DATE ABOUT OUR LATEST OFFERS
+                        БУДЬТЕ В КУРСЕ НАШИХ ПОСЛЕДНИХ ПРЕДЛОЖЕНИЙ!
                     </h2>
                     <div className={styles.btns}>
                         <Input
-                            icon={<SearchIcon />}
-                            placeholder="Enter your email address"
+                            icon={
+                                <svg width="21" height="16" viewBox="0 0 21 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19.125 0H1.125C0.826631 0 0.540483 0.118526 0.329505 0.329505C0.118526 0.540483 0 0.826631 0 1.125V13.875C0 14.3723 0.197544 14.8492 0.549175 15.2008C0.900805 15.5525 1.37772 15.75 1.875 15.75H18.375C18.8723 15.75 19.3492 15.5525 19.7008 15.2008C20.0525 14.8492 20.25 14.3723 20.25 13.875V1.125C20.25 0.826631 20.1315 0.540483 19.9205 0.329505C19.7095 0.118526 19.4234 0 19.125 0ZM10.125 7.84875L4.01719 2.25H16.2328L10.125 7.84875ZM6.82406 7.875L2.25 12.0675V3.6825L6.82406 7.875ZM8.48906 9.40125L9.36469 10.2047C9.57219 10.395 9.84348 10.5005 10.125 10.5005C10.4065 10.5005 10.6778 10.395 10.8853 10.2047L11.7609 9.40125L16.2328 13.5H4.01719L8.48906 9.40125ZM13.4259 7.875L18 3.6825V12.0675L13.4259 7.875Z" fill="black" fillOpacity="0.4" />
+                                </svg>
+                            }
+                            placeholder="Email "
                             variant="outline"
                             fullWidth
                         />
-                        <Button variant='light'>Subscribe to Newsletter</Button>
+                        <Button variant='light'>Подпишитесь на рассылку</Button>
                     </div>
                 </div>
                 <div className={styles.wrap}>
                     <div className={styles.about}>
                         <h3>SHOP.CO</h3>
-                        <p>We have clothes that suits your style and which you’re proud to wear. From women to men.</p>
+                        <p>
+                            У нас есть одежда, которая подойдет вашему стилю и которую вы будете с гордостью носить. От женской до мужской.
+                        </p>
+
+                    </div>
+                    <div className={styles.copyright}>
+                        <p>Следите за нами в соцсетях</p>
                         <div className={styles.socials}>
                             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="14" cy="14" r="14" fill="white" />
@@ -47,49 +57,9 @@ const Footer = () => {
                                 <circle cx="14" cy="14" r="13.5" stroke="black" strokeOpacity="0.2" />
                                 <path d="M20.2071 10.9831C19.7881 11.1693 19.3458 11.2857 18.8802 11.3556C19.3458 11.0762 19.7183 10.6339 19.8812 10.0985C19.4389 10.3546 18.9501 10.5408 18.4146 10.6572C17.9956 10.2149 17.3904 9.93555 16.7386 9.93555C15.4815 9.93555 14.4572 10.9598 14.4572 12.2169C14.4572 12.4031 14.4805 12.5661 14.5271 12.729C12.6415 12.6359 10.9421 11.728 9.80141 10.3313C9.61518 10.6805 9.49878 11.0529 9.49878 11.472C9.49878 12.2634 9.89453 12.9618 10.5231 13.3808C10.1506 13.3576 9.80141 13.2644 9.4755 13.1015V13.1248C9.4755 14.2422 10.267 15.1733 11.3145 15.3828C11.1283 15.4294 10.9188 15.4527 10.7093 15.4527C10.5696 15.4527 10.4067 15.4294 10.267 15.4061C10.5696 16.314 11.4077 16.9891 12.4087 16.9891C11.6172 17.5943 10.6395 17.9668 9.56862 17.9668C9.38239 17.9668 9.19616 17.9668 9.0332 17.9435C10.0575 18.5953 11.2447 18.9678 12.5483 18.9678C16.7618 18.9678 19.0665 15.476 19.0665 12.4497C19.0665 12.3566 19.0665 12.2402 19.0665 12.1471C19.5088 11.8444 19.9045 11.4487 20.2071 10.9831Z" fill="black" />
                             </svg>
-
-                        </div>
-                    </div>
-                    <div className={styles.menu}>
-                        <div>
-                            <h4>Company</h4>
-                            <ul>
-                                <li>About</li>
-                                <li>Features</li>
-                                <li>Works</li>
-                                <li>Career</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4>Help</h4>
-                            <ul>
-                                <li>About</li>
-                                <li>Features</li>
-                                <li>Works</li>
-                                <li>Career</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4>FAQ</h4>
-                            <ul>
-                                <li>About</li>
-                                <li>Features</li>
-                                <li>Works</li>
-                                <li>Career</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4>Resources</h4>
-                            <ul>
-                                <li>About</li>
-                                <li>Features</li>
-                                <li>Works</li>
-                                <li>Career</li>
-                            </ul>
                         </div>
                     </div>
                 </div>
-                <div className={styles.copyright}></div>
 
             </Container>
         </footer>
