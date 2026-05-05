@@ -2,22 +2,43 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button/Button';
 import Input from '@/components/ui/Input/Input';
 import { useCartStore } from '@/store/cartStore';
+import { validatePromo } from '@/lib/data/promoCodes';
 import styles from './CartSummary.module.css';
 
 const CartSummary = () => {
+  const router = useRouter();
   const { totalPrice, items } = useCartStore();
   const subtotal = totalPrice();
   const discount = Math.round(subtotal * 0.2);
-  const delivery = 15;
+  const [promoCode, setPromoCode] = useState('');
+  const [promoDiscount, setPromoDiscount] = useState(0);
+  const [promoError, setPromoError] = useState('');
+  const [promoApplied, setPromoApplied] = useState('');
+  const delivery = 15 - promoDiscount;
   const total = subtotal - discount + delivery;
-  const [promo, setPromo] = useState('');
+
+  const handleApplyPromo = () => {
+    setPromoError('');
+    const promo = validatePromo(promoCode);
+    if (promo) {
+      setPromoDiscount(promo.discount);
+      setPromoApplied(promo.code);
+      setPromoError('');
+    } else {
+      setPromoDiscount(0);
+      setPromoApplied('');
+      setPromoError('Invalid promo code');
+    }
+  };
 
   const handleCheckout = () => {
-    // Пока просто заглушка, потом будет мутация
-    alert(`Order placed! Total: $${total}`);
+    const params = new URLSearchParams();
+    if (promoApplied) params.set('promo', promoApplied);
+    router.push(`/checkout?${params.toString()}`);
   };
 
   return (
@@ -35,7 +56,7 @@ const CartSummary = () => {
         </div>
         <div className={styles.row}>
           <span>Delivery Fee</span>
-          <span>${delivery}</span>
+          <span>{promoDiscount > 0 ? <><s>${15}</s> ${delivery}</> : `$${delivery}`}</span>
         </div>
       </div>
 
@@ -57,11 +78,18 @@ const CartSummary = () => {
           placeholder="Add promo code"
           variant="outline"
           fullWidth
-          value={promo}
-          onChange={(e) => setPromo(e.target.value)}
+          value={promoCode}
+          onChange={(e) => setPromoCode(e.target.value)}
+          error={promoError}
         />
-        <Button variant="default" className={styles.promoBtn}>Apply</Button>
+        <Button variant="default" className={styles.promoBtn} onClick={handleApplyPromo}>
+          Apply
+        </Button>
       </div>
+      
+      {promoApplied && (
+        <p className={styles.promoSuccess}>Promo {promoApplied} applied!</p>
+      )}
 
       <Button variant="default" className={styles.checkoutBtn} onClick={handleCheckout}>
         Go to Checkout

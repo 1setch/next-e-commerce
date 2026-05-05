@@ -22,10 +22,10 @@ const CartPage = () => {
         return (
             <section>
                 <Container>
-                    <Breadcrumbs items={[{ label: 'Cart' }]} />
-                    <h2 className={styles.title}>Your Cart</h2>
+                    <Breadcrumbs items={[{ label: 'Корзина' }]} />
+                    <h2 className={styles.title}>Ваша корзина</h2>
                     <div className={styles.empty}>
-                        <p>Your cart is empty</p>
+                        <p>Ваша корзина пуста :(</p>
                         <Link href="/catalog" className={styles.link}>Continue Shopping</Link>
                     </div>
                 </Container>
@@ -36,8 +36,8 @@ const CartPage = () => {
     return (
         <section>
             <Container>
-                <Breadcrumbs items={[{ label: 'Cart' }]} />
-                <h2 className={styles.title}>Your Cart</h2>
+                <Breadcrumbs items={[{ label: 'Корзина' }]} />
+                <h2 className={styles.title}>Ваша корзина</h2>
                 <div className={styles.layout}>
                     <div className={styles.items}>
                         {items.map((item, index) => (

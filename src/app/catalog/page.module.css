@@ -186,14 +186,15 @@
     color: #FF3333;
 }
 
-/* Добавь это правило */
 @media (max-width: 1024px) {
-    .sidebarWrapper {
-        display: none; /* скрываем обёртку полностью, а не только сайдбар */
-    }
-    
-    /* Альтернатива — если нужно сохранить overlay, то вместо display: none */
-    /* .sidebarWrapper:not(.sidebarOpen) {
-        display: none;
-    } */
+  .sidebarWrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  .sidebarOpen {
+    pointer-events: auto;
+  }
 }

@@ -69,12 +69,13 @@ function CatalogContent() {
     const startItem = (currentPage - 1) * 9 + 1;
     const endItem = Math.min(currentPage * 9, data?.total || 0);
     const searchQuery = searchParams.get('search') || '';
+    const currentCategory = searchParams.get('category') || '';
 
     if (isLoading) {
         return (
             <section>
                 <Container>
-                    <Breadcrumbs items={[{ label: 'Catalog' }]} />
+                    <Breadcrumbs items={[{ label: 'Каталог' }]} />
                     <div className={styles.loading}>Loading...</div>
                 </Container>
             </section>
@@ -85,7 +86,7 @@ function CatalogContent() {
         return (
             <section>
                 <Container>
-                    <Breadcrumbs items={[{ label: 'Catalog' }]} />
+                    <Breadcrumbs items={[{ label: 'Каталог' }]} />
                     <div className={styles.error}>Failed to load products</div>
                 </Container>
             </section>
@@ -95,7 +96,12 @@ function CatalogContent() {
     return (
         <section>
             <Container>
-                <Breadcrumbs items={[{ label: 'Catalog' }]} />
+                <Breadcrumbs
+                    items={[
+                        { label: 'Каталог', href: currentCategory ? '/catalog' : undefined },
+                        ...(currentCategory ? [{ label: currentCategory }] : []),
+                    ]}
+                />
 
                 <div className={styles.topBar}>
                     <h2 className={styles.title}>
@@ -134,8 +140,14 @@ function CatalogContent() {
                         className={`${styles.mobileOverlay} ${isMobileFilterOpen ? styles.overlayOpen : ''}`}
                         onClick={toggleFilters}
                     />
-                    <div className={`${styles.sidebarWrapper} ${isMobileFilterOpen ? styles.sidebarOpen : ''}`}>
-                        <FiltersSidebar isOpen={isMobileFilterOpen} />
+                    <div
+                        className={`${styles.sidebarWrapper} ${isMobileFilterOpen ? styles.sidebarOpen : ''}`}
+                        onClick={toggleFilters} // клик по обёртке закрывает
+                    >
+                        {/* Останавливаем всплытие, чтобы клик по самому сайдбару не закрывал */}
+                        <div onClick={(e) => e.stopPropagation()}>
+                            <FiltersSidebar isOpen={isMobileFilterOpen} />
+                        </div>
                     </div>
 
                     <div className={styles.content}>
@@ -143,7 +155,7 @@ function CatalogContent() {
                             {data?.data.map((product) => (
                                 <ProductCard
                                     key={product._id}
-                                    id={product._id}
+                                    id={product._id.toString()}
                                     name={product.name}
                                     rating={String(product.rating)}
                                     price={String(product.discountPrice ?? product.price)}
@@ -166,5 +178,9 @@ function CatalogContent() {
 }
 
 export default function CatalogPage() {
-    return <CatalogContent />;
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <CatalogContent />
+        </Suspense>
+    );
 }

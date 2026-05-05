@@ -67,12 +67,18 @@
     .summary {
         position: static;
     }
-    
+
     .promo {
         flex-direction: column;
     }
-    
+
     .promoBtn {
         width: 100%;
     }
+}
+
+.promoSuccess {
+    color: #22c55e;
+    font-size: 14px;
+    margin-top: -8px;
 }
