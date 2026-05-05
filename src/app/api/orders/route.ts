@@ -1,4 +1,4 @@
-// app/api/orders/route.ts
+// app/api/orders/route.ts (обнови существующий)
 import { NextRequest, NextResponse } from 'next/server';
 import { jwtVerify } from 'jose';
 import dbConnect from '@/lib/db/mongoose';
@@ -17,6 +17,27 @@ async function getUserId(request: NextRequest): Promise<string | null> {
   }
 }
 
+// Получить заказы пользователя
+export async function GET(request: NextRequest) {
+  const userId = await getUserId(request);
+  if (!userId) {
+    return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+  }
+
+  await dbConnect();
+  const orders = await Order.find({ userId, status: { $ne: 'cart' } })
+    .sort({ createdAt: -1 })
+    .lean();
+
+  return NextResponse.json(
+    orders.map((o: any) => ({
+      ...o,
+      _id: String(o._id),
+    }))
+  );
+}
+
+// Создать заказ
 export async function POST(request: NextRequest) {
   try {
     const userId = await getUserId(request);

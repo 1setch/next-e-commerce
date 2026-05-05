@@ -54,7 +54,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
             image={p.images?.[0] || ''}
           />
         </div>
-        <ProductTabs description={p.description} />
+        <ProductTabs
+          productId={p._id}
+          description={p.description}
+          rating={p.rating}
+          reviewCount={p.reviewCount}
+        />
         <RecommendedProducts category={p.category} currentProductId={p._id} />
       </Container>
     </section>
