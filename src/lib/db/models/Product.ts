@@ -1,5 +1,5 @@
 // lib/db/models/Product.ts
-import mongoose, { Schema, Model } from 'mongoose';
+import mongoose, { Schema, Model } from "mongoose";
 
 export interface IProduct {
   _id?: string;
@@ -24,7 +24,7 @@ const ProductSchema = new Schema<IProduct>(
     name: { type: String, required: true },
     price: { type: Number, required: true },
     discountPrice: { type: Number },
-    rating: { type: Number, default: 0 },
+    rating: { type: Number, default: 5 },
     reviewCount: { type: Number, default: 0 },
     description: { type: String, required: true },
     colors: [
@@ -44,17 +44,17 @@ const ProductSchema = new Schema<IProduct>(
     timestamps: true,
     // Отключаем автоиндексацию текста
     autoIndex: false,
-  }
+  },
 );
 
 // Удаляем проблемный текстовый индекс если есть
-ProductSchema.pre('save', async function () {
+ProductSchema.pre("save", async function () {
   try {
-    await mongoose.model('Product').collection.dropIndex('text_1');
+    await mongoose.model("Product").collection.dropIndex("text_1");
   } catch {}
 });
 
 const Product: Model<IProduct> =
-  mongoose.models.Product || mongoose.model<IProduct>('Product', ProductSchema);
+  mongoose.models.Product || mongoose.model<IProduct>("Product", ProductSchema);
 
 export default Product;

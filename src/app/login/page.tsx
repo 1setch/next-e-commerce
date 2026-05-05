@@ -37,7 +37,7 @@ const LoginPage = () => {
         <section>
             <Container>
                 <div className={styles.login}>
-                    <h2>Sign In</h2>
+                    <h2>Вход</h2>
                     <form onSubmit={handleSubmit} className={styles.form}>
                         <Input
                             type="email"
@@ -48,16 +48,16 @@ const LoginPage = () => {
                         />
                         <Input
                             type="password"
-                            placeholder="Password"
+                            placeholder="Пароль"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             fullWidth
                         />
                         {error && <p className={styles.error}>{error}</p>}
-                        <Button type="submit">Sign In</Button>
+                        <Button type="submit">Войти</Button>
                     </form>
                     <p className={styles.registerLink}>
-                        Don&apos;t have an account? <Link href="/register">Sign Up</Link>
+                        Еще нет аккаунта? <Link href="/register">Регистрация</Link>
                     </p>
                 </div>
             </Container>

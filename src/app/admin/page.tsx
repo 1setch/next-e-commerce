@@ -17,8 +17,6 @@ interface ProductForm {
     discountPrice: string;
     description: string;
     category: string;
-    rating: string;
-    reviewCount: string;
     colors: string[];
     sizes: string[];
     isNewProduct: boolean;
@@ -32,8 +30,6 @@ const emptyForm: ProductForm = {
     discountPrice: '',
     description: '',
     category: categories[0],
-    rating: '0',
-    reviewCount: '0',
     colors: [],
     sizes: [],
     isNewProduct: false,
@@ -47,6 +43,39 @@ const AdminPage = () => {
     const [editingId, setEditingId] = useState<string | null>(null);
     const [form, setForm] = useState<ProductForm>(emptyForm);
     const [uploading, setUploading] = useState(false);
+    // Добавь стейты в начало компонента
+    const [activeView, setActiveView] = useState<'products' | 'questions'>('products');
+    const [questions, setQuestions] = useState<any[]>([]);
+    const [answerText, setAnswerText] = useState<Record<string, string>>({});
+
+    // Загрузка вопросов
+    const fetchQuestions = async () => {
+        const prods = await fetch('/api/products?limit=100').then(r => r.json());
+
+        const allQuestions: any[] = [];
+        for (const p of prods.data) {
+            const res = await fetch(`/api/questions?productId=${p._id}`);
+            const qs = await res.json();
+            if (Array.isArray(qs)) {
+                qs.forEach((q: any) => allQuestions.push({ ...q, productName: p.name }));
+            }
+        }
+        setQuestions(allQuestions);
+    };
+
+    useEffect(() => {
+        if (activeView === 'questions') fetchQuestions();
+    }, [activeView]);
+
+    const handleAnswer = async (questionId: string) => {
+        await fetch(`/api/questions/${questionId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ answer: answerText[questionId] }),
+        });
+        setAnswerText((prev) => ({ ...prev, [questionId]: '' }));
+        fetchQuestions();
+    };
 
     const fetchProducts = async () => {
         const res = await fetch('/api/products?limit=100');
@@ -107,8 +136,6 @@ const AdminPage = () => {
             discountPrice: form.discountPrice ? Number(form.discountPrice) : undefined,
             description: form.description,
             category: form.category,
-            rating: Number(form.rating),
-            reviewCount: Number(form.reviewCount),
             colors: form.colors.map((name) => {
                 const found = allColors.find((c) => c.name === name);
                 return { name, hex: found?.hex || '#000000' };
@@ -139,8 +166,6 @@ const AdminPage = () => {
             discountPrice: product.discountPrice ? String(product.discountPrice) : '',
             description: product.description,
             category: product.category,
-            rating: String(product.rating),
-            reviewCount: String(product.reviewCount),
             colors: product.colors.map((c) => c.name),
             sizes: product.sizes,
             isNewProduct: product.isNew,
@@ -161,106 +186,160 @@ const AdminPage = () => {
         <section>
             <Container>
                 <div className={styles.header}>
-                    <h2>Admin Panel</h2>
-                    <Button onClick={() => { resetForm(); setShowForm(true); }}>Add Product</Button>
+                    <div className={styles.viewTabs}>
+                        <button
+                            className={`${styles.viewTab} ${activeView === 'products' ? styles.viewTabActive : ''}`}
+                            onClick={() => setActiveView('products')}
+                        >Products</button>
+                        <button
+                            className={`${styles.viewTab} ${activeView === 'questions' ? styles.viewTabActive : ''}`}
+                            onClick={() => setActiveView('questions')}
+                        >Questions ({questions.filter(q => !q.answer).length})</button>
+                    </div>
+                    {activeView === 'products' && (
+                        <Button onClick={() => { resetForm(); setShowForm(true); }}>Add Product</Button>
+                    )}
                 </div>
 
-                {showForm && (
-                    <div className={styles.modal}>
-                        <div className={styles.modalContent}>
-                            <div className={styles.modalHeader}>
-                                <h3>{editingId ? 'Edit Product' : 'New Product'}</h3>
-                                <button className={styles.closeBtn} onClick={resetForm}>✕</button>
-                            </div>
-                            <form onSubmit={handleSubmit} className={styles.form}>
-                                <Input helperText="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
 
-                                <div className={styles.row}>
-                                    <Input helperText="Price" type="number" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} required />
-                                    <Input helperText="Discount Price" type="number" value={form.discountPrice} onChange={(e) => setForm({ ...form, discountPrice: e.target.value })} />
-                                </div>
-
-                                <Input helperText="Rating" type="number" min="0" max="5" step="0.1" value={form.rating} onChange={(e) => setForm({ ...form, rating: e.target.value })} />
-                                <Input helperText="Reviews Count" type="number" value={form.reviewCount} onChange={(e) => setForm({ ...form, reviewCount: e.target.value })} />
-
-                                <div className={styles.field}>
-                                    <label>Description</label>
-                                    <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={4} required />
-                                </div>
-
-                                <div className={styles.field}>
-                                    <label>Category</label>
-                                    <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>
-                                        {categories.map((cat) => (
-                                            <option key={cat} value={cat}>{cat}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div className={styles.field}>
-                                    <label>Colors</label>
-                                    <div className={styles.chips}>
-                                        {allColors.map((color) => (
-                                            <button
-                                                key={color.name}
-                                                type="button"
-                                                className={`${styles.chip} ${form.colors.includes(color.name) ? styles.chipActive : ''}`}
-                                                onClick={() => setForm({ ...form, colors: toggleArrayItem(form.colors, color.name) })}
-                                            >
-                                                <span className={styles.colorDot} style={{ backgroundColor: color.hex }} />
-                                                {color.name}
-                                            </button>
-                                        ))}
+                {activeView === 'products' ? (
+                    <>
+                        {showForm && (
+                            <div className={styles.modal}>
+                                <div className={styles.modalContent}>
+                                    <div className={styles.modalHeader}>
+                                        <h3>{editingId ? 'Edit Product' : 'New Product'}</h3>
+                                        <button className={styles.closeBtn} onClick={resetForm}>✕</button>
                                     </div>
-                                </div>
+                                    <form onSubmit={handleSubmit} className={styles.form}>
+                                        <Input helperText="Name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
 
-                                <div className={styles.field}>
-                                    <label>Sizes</label>
-                                    <div className={styles.chips}>
-                                        {allSizes.map((size) => (
-                                            <button
-                                                key={size}
-                                                type="button"
-                                                className={`${styles.chip} ${form.sizes.includes(size) ? styles.chipActive : ''}`}
-                                                onClick={() => setForm({ ...form, sizes: toggleArrayItem(form.sizes, size) })}
-                                            >
-                                                {size}
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
+                                        <div className={styles.row}>
+                                            <Input helperText="Price" type="number" value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} required />
+                                            <Input helperText="Discount Price" type="number" value={form.discountPrice} onChange={(e) => setForm({ ...form, discountPrice: e.target.value })} />
+                                        </div>
 
-                                <div className={styles.checkboxes}>
-                                    <label>
-                                        <input type="checkbox" checked={form.isNewProduct} onChange={(e) => setForm({ ...form, isNewProduct: e.target.checked })} />
-                                        New Arrival
-                                    </label>
-                                    <label>
-                                        <input type="checkbox" checked={form.isBestseller} onChange={(e) => setForm({ ...form, isBestseller: e.target.checked })} />
-                                        Bestseller
-                                    </label>
-                                </div>
+                                        
 
-                                <div className={styles.field}>
-                                    <label>Images</label>
-                                    <input type="file" multiple accept="image/*" onChange={handleImageUpload} />
-                                    {uploading && <span className={styles.uploading}>Uploading...</span>}
-                                    <div className={styles.imagePreviews}>
-                                        {form.images.map((url, i) => (
-                                            <div key={i} className={styles.imagePreview}>
-                                                <img src={url} alt="" width={80} height={80} />
-                                                <button type="button" onClick={() => setForm({ ...form, images: form.images.filter((_, j) => j !== i) })}>✕</button>
+                                        <div className={styles.field}>
+                                            <label>Description</label>
+                                            <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={4} required />
+                                        </div>
+
+                                        <div className={styles.field}>
+                                            <label>Category</label>
+                                            <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })}>
+                                                {categories.map((cat) => (
+                                                    <option key={cat} value={cat}>{cat}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        <div className={styles.field}>
+                                            <label>Colors</label>
+                                            <div className={styles.chips}>
+                                                {allColors.map((color) => (
+                                                    <button
+                                                        key={color.name}
+                                                        type="button"
+                                                        className={`${styles.chip} ${form.colors.includes(color.name) ? styles.chipActive : ''}`}
+                                                        onClick={() => setForm({ ...form, colors: toggleArrayItem(form.colors, color.name) })}
+                                                    >
+                                                        <span className={styles.colorDot} style={{ backgroundColor: color.hex }} />
+                                                        {color.name}
+                                                    </button>
+                                                ))}
                                             </div>
-                                        ))}
-                                    </div>
-                                </div>
+                                        </div>
 
-                                <div className={styles.formActions}>
-                                    <Button type="submit">{editingId ? 'Update' : 'Create'}</Button>
-                                    <Button variant="outline" type="button" onClick={resetForm}>Cancel</Button>
+                                        <div className={styles.field}>
+                                            <label>Sizes</label>
+                                            <div className={styles.chips}>
+                                                {allSizes.map((size) => (
+                                                    <button
+                                                        key={size}
+                                                        type="button"
+                                                        className={`${styles.chip} ${form.sizes.includes(size) ? styles.chipActive : ''}`}
+                                                        onClick={() => setForm({ ...form, sizes: toggleArrayItem(form.sizes, size) })}
+                                                    >
+                                                        {size}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className={styles.checkboxes}>
+                                            <label>
+                                                <input type="checkbox" checked={form.isNewProduct} onChange={(e) => setForm({ ...form, isNewProduct: e.target.checked })} />
+                                                New Arrival
+                                            </label>
+                                            <label>
+                                                <input type="checkbox" checked={form.isBestseller} onChange={(e) => setForm({ ...form, isBestseller: e.target.checked })} />
+                                                Bestseller
+                                            </label>
+                                        </div>
+
+                                        <div className={styles.field}>
+                                            <label>Images</label>
+                                            <input type="file" multiple accept="image/*" onChange={handleImageUpload} />
+                                            {uploading && <span className={styles.uploading}>Uploading...</span>}
+                                            <div className={styles.imagePreviews}>
+                                                {form.images.map((url, i) => (
+                                                    <div key={i} className={styles.imagePreview}>
+                                                        <img src={url} alt="" width={80} height={80} />
+                                                        <button type="button" onClick={() => setForm({ ...form, images: form.images.filter((_, j) => j !== i) })}>✕</button>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className={styles.formActions}>
+                                            <Button type="submit">{editingId ? 'Update' : 'Create'}</Button>
+                                            <Button variant="outline" type="button" onClick={resetForm}>Cancel</Button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        )}
+                    </>) : (/* Вопросы — отдельная секция, не внутри таблицы */
+                    <div className={styles.questionsSection}>
+                        <h3>Customer Questions</h3>
+                        {questions.length === 0 ? (
+                            <p className={styles.emptyText}>No questions yet</p>
+                        ) : (
+                            questions.map((q) => (
+                                <div key={q._id} className={styles.questionCard}>
+                                    <div className={styles.questionHeader}>
+                                        <div>
+                                            <span className={styles.questionProduct}>{q.productName}</span>
+                                            <span className={styles.questionUser}>— {q.userName}</span>
+                                        </div>
+                                        <span className={`${styles.questionStatus} ${q.answer ? styles.statusAnswered : styles.statusPending}`}>
+                                            {q.answer ? 'Answered' : 'Pending'}
+                                        </span>
+                                    </div>
+                                    <p className={styles.questionText}>{q.question}</p>
+                                    {q.answer ? (
+                                        <div className={styles.answerBlock}>
+                                            <span className={styles.answerLabel}>Answer:</span>
+                                            <p>{q.answer}</p>
+                                        </div>
+                                    ) : (
+                                        <div className={styles.answerForm}>
+                                            <textarea
+                                                value={answerText[q._id] || ''}
+                                                onChange={(e) => setAnswerText({ ...answerText, [q._id]: e.target.value })}
+                                                placeholder="Write an answer..."
+                                                rows={3}
+                                            />
+                                            <Button onClick={() => handleAnswer(q._id)} disabled={!answerText[q._id]?.trim()}>
+                                                Answer
+                                            </Button>
+                                        </div>
+                                    )}
+                                </div>
+                            ))
+                        )}
                     </div>
                 )}
 
@@ -290,6 +369,7 @@ const AdminPage = () => {
                                     </td>
                                 </tr>
                             ))}
+
                         </tbody>
                     </table>
                 </div>

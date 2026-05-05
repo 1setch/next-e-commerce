@@ -1,5 +1,6 @@
 // lib/db/models/User.ts
-import mongoose, { Schema, Document, Model } from 'mongoose';
+
+import mongoose, { Schema, Model } from 'mongoose';
 
 export interface IUser {
   _id?: string;
@@ -7,6 +8,7 @@ export interface IUser {
   password: string;
   role: 'user' | 'admin';
   name?: string;
+  image?: string;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -15,8 +17,9 @@ const UserSchema = new Schema<IUser>(
     password: { type: String, required: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     name: { type: String },
+    image: { type: String },
   },
-  { timestamps: true }
+  { timestamps: true, strict: false }
 );
 
 const User: Model<IUser> =

@@ -113,11 +113,11 @@ function CatalogContent() {
                                 variant="ghost"
                                 onClick={() => router.push('/catalog')}
                             >
-                                Clear All Filters
+                                сбросить фильтры
                             </Button>
                         )}
                         <span className={styles.showing}>
-                            Showing {startItem}-{endItem} of {data?.total} Products
+                            Показано {startItem}-{endItem} из {data?.total} товаров
                         </span>
                         <div className={styles.sortWrapper}>
                             <SortSelect />

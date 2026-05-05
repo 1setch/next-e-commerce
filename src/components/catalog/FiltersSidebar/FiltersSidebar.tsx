@@ -88,13 +88,13 @@ const FiltersSidebar = ({ isOpen }: FiltersSidebarProps) => {
     return (
         <aside className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}>
             <div className={styles.header}>
-                <h3 className={styles.title}>Filters</h3>
+                <h3 className={styles.title}>Фильтры</h3>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path d="M3 7H21M3 12H21M3 17H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
             </div>
 
-            <FilterGroup title="Categories" defaultOpen={true}>
+            <FilterGroup title="Категории" defaultOpen={true}>
                 <ul className={styles.list}>
                     {categories.map((cat) => (
                         <li key={cat}>
@@ -111,7 +111,7 @@ const FiltersSidebar = ({ isOpen }: FiltersSidebarProps) => {
                 </ul>
             </FilterGroup>
 
-            <FilterGroup title="Price" defaultOpen={true}>
+            <FilterGroup title="Цена" defaultOpen={true}>
                 <PriceRange
                     min={localMinPrice}
                     max={localMaxPrice}
@@ -120,11 +120,11 @@ const FiltersSidebar = ({ isOpen }: FiltersSidebarProps) => {
                 />
             </FilterGroup>
 
-            <FilterGroup title="Colors" defaultOpen={true}>
+            <FilterGroup title="Цвет" defaultOpen={true}>
                 <ColorFilter selected={localColor} onToggle={toggleColor} />
             </FilterGroup>
 
-            <FilterGroup title="Size" defaultOpen={false}>
+            <FilterGroup title="Размер" defaultOpen={false}>
                 <SizeFilter
                     selected={localSize}
                     onSelect={(size) => setLocalSize(size === localSize ? '' : size)}
@@ -132,12 +132,12 @@ const FiltersSidebar = ({ isOpen }: FiltersSidebarProps) => {
             </FilterGroup>
 
             <Button variant="default" className={styles.applyBtn} onClick={applyFilters}>
-                Apply Filter
+                Применить
             </Button>
 
             {hasFilters && (
                 <Button variant="ghost" className={styles.clearBtn} onClick={clearAll}>
-                    Clear All Filters
+                    Сбросить фильтры
                 </Button>
             )}
         </aside>

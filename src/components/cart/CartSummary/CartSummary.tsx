@@ -43,28 +43,28 @@ const CartSummary = () => {
 
   return (
     <div className={styles.summary}>
-      <h3 className={styles.title}>Order Summary</h3>
+      <h3 className={styles.title}>К оформлению</h3>
 
       <div className={styles.rows}>
         <div className={styles.row}>
-          <span>Subtotal</span>
-          <span>${subtotal}</span>
+          <span>Товары</span>
+          <span>{subtotal}{' ₽'}</span>
         </div>
         <div className={styles.row}>
-          <span>Discount (-20%)</span>
-          <span className={styles.discount}>-${discount}</span>
+          <span>Скидка (-20%)</span>
+          <span className={styles.discount}>-{discount}{' ₽'}</span>
         </div>
         <div className={styles.row}>
-          <span>Delivery Fee</span>
-          <span>{promoDiscount > 0 ? <><s>${15}</s> ${delivery}</> : `$${delivery}`}</span>
+          <span>доставка</span>
+          <span>{promoDiscount > 0 ? <><s>{15} {' ₽'}</s> {delivery} {' ₽'}</> : `${delivery} ₽`}</span>
         </div>
       </div>
 
       <hr className={styles.divider} />
 
       <div className={`${styles.row} ${styles.totalRow}`}>
-        <span>Total</span>
-        <span>${total}</span>
+        <span>Итого</span>
+        <span>{total}{' ₽'}</span>
       </div>
 
       <div className={styles.promo}>
@@ -75,7 +75,7 @@ const CartSummary = () => {
                 stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           }
-          placeholder="Add promo code"
+          placeholder="Введите промокод"
           variant="outline"
           fullWidth
           value={promoCode}
@@ -83,16 +83,16 @@ const CartSummary = () => {
           error={promoError}
         />
         <Button variant="default" className={styles.promoBtn} onClick={handleApplyPromo}>
-          Apply
+          Применить
         </Button>
       </div>
       
       {promoApplied && (
-        <p className={styles.promoSuccess}>Promo {promoApplied} applied!</p>
+        <p className={styles.promoSuccess}>Промокод {promoApplied} сработал!</p>
       )}
 
       <Button variant="default" className={styles.checkoutBtn} onClick={handleCheckout}>
-        Go to Checkout
+        Перейти к оформлению
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>

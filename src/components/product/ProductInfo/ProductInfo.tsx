@@ -70,14 +70,14 @@ const ProductInfo = ({
                 <h3 className={styles.title}>{name}</h3>
                 <div className={styles.rating}>
                     {'★'.repeat(Math.floor(rating))}{'☆'.repeat(5 - Math.floor(rating))} {rating}/5
-                    <span className={styles.reviewCount}>({reviewCount} reviews)</span>
+                    <span className={styles.reviewCount}>({reviewCount} отзывов)</span>
                 </div>
 
                 <div className={styles.priceBlock}>
-                    <span className={styles.price}>${price}</span>
+                    <span className={styles.price}>{price} {' ₽'}</span>
                     {hasDiscount && (
                         <>
-                            <span className={styles.originalPrice}>${originalPrice}</span>
+                            <span className={styles.originalPrice}>{originalPrice} {' ₽'}</span>
                             <span className={styles.discount}>-{discountPercent}%</span>
                         </>
                     )}
@@ -89,7 +89,7 @@ const ProductInfo = ({
             <hr className={styles.hrline} />
 
             <div>
-                <span className={styles.optionLabel}>Select Colors</span>
+                <span className={styles.optionLabel}>Цвет</span>
                 <div className={styles.colors}>
                     {colors.map((color, index) => (
                         <button
@@ -112,7 +112,7 @@ const ProductInfo = ({
             <hr className={styles.hrline} />
 
             <div>
-                <span className={styles.optionLabel}>Choose Size</span>
+                <span className={styles.optionLabel}>Размер</span>
                 <div className={styles.sizes}>
                     {sizes.map((size) => (
                         <button
@@ -131,7 +131,7 @@ const ProductInfo = ({
             <div className={styles.addtocart}>
                 <QuantitySelector value={quantity} onChange={setQuantity} />
                 <Button className={styles.btn} onClick={handleAddToCart}>
-                    Add to Cart
+                    Добавить в корзину
                 </Button>
             </div>
         </div>

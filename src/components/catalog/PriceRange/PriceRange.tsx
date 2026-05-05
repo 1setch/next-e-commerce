@@ -42,8 +42,8 @@ const PriceRange = ({ min, max, onMinChange, onMaxChange }: PriceRangeProps) => 
         />
       </div>
       <div className={styles.values}>
-        <span>${min}</span>
-        <span>${max}</span>
+        <span>{min} {' ₽'}</span>
+        <span>{max} {' ₽'}</span>
       </div>
     </div>
   );
