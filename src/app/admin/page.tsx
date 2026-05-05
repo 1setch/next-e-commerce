@@ -60,6 +60,14 @@ const AdminPage = () => {
                 qs.forEach((q: any) => allQuestions.push({ ...q, productName: p.name }));
             }
         }
+
+        // Сортировка: сначала неотвеченные, потом по дате (новые сверху)
+        allQuestions.sort((a, b) => {
+            if (a.answer && !b.answer) return 1;
+            if (!a.answer && b.answer) return -1;
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
+
         setQuestions(allQuestions);
     };
 
@@ -219,7 +227,7 @@ const AdminPage = () => {
                                             <Input helperText="Discount Price" type="number" value={form.discountPrice} onChange={(e) => setForm({ ...form, discountPrice: e.target.value })} />
                                         </div>
 
-                                        
+
 
                                         <div className={styles.field}>
                                             <label>Description</label>

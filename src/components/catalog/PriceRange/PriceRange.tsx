@@ -12,7 +12,7 @@ interface PriceRangeProps {
 
 const PriceRange = ({ min, max, onMinChange, onMaxChange }: PriceRangeProps) => {
   const minPrice = 0;
-  const maxPrice = 500;
+  const maxPrice = 10000;
 
   const minPercent = ((min - minPrice) / (maxPrice - minPrice)) * 100;
   const maxPercent = ((max - minPrice) / (maxPrice - minPrice)) * 100;
