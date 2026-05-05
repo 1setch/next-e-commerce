@@ -6,11 +6,11 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import styles from './SortSelect.module.css';
 
 const sortOptions = [
-  { label: 'Most Popular', value: 'popular' },
-  { label: 'Newest', value: 'newest' },
-  { label: 'Price: Low to High', value: 'price-asc' },
-  { label: 'Price: High to Low', value: 'price-desc' },
-  { label: 'Best Rating', value: 'rating' },
+  { label: 'Популярное', value: 'popular' },
+  { label: 'Новое', value: 'newest' },
+  { label: 'Цена: по возрастанию', value: 'price-asc' },
+  { label: 'Цена: по убыванию', value: 'price-desc' },
+  { label: 'Лучший рейтинг', value: 'rating' },
 ];
 
 const SortSelect = () => {
@@ -42,7 +42,7 @@ const SortSelect = () => {
 
   return (
     <div className={styles.sort} ref={ref}>
-      <span className={styles.label}>Sort by:</span>
+      <span className={styles.label}>Сортировать по:</span>
       <button className={styles.trigger} onClick={() => setIsOpen(!isOpen)}>
         {selectedOption.label}
         <svg width="12" height="7" viewBox="0 0 12 7" fill="none" className={`${styles.arrow} ${isOpen ? styles.arrowUp : ''}`}>

@@ -37,9 +37,9 @@ const CartItem = ({ id, name, size, color, colorHex, price, image, quantity }: C
         <div className={styles.top}>
           <div className={styles.details}>
             <h4 className={styles.name}>{name}</h4>
-            <span className={styles.size}>Size: {size}</span>
+            <span className={styles.size}>Размер: {size}</span>
             <span className={styles.color}>
-              Color:{' '}
+              Цвет:{' '}
               <span className={styles.colorDot} style={{ backgroundColor: colorHex }} />
               {color}
             </span>
@@ -60,7 +60,7 @@ const CartItem = ({ id, name, size, color, colorHex, price, image, quantity }: C
           </button>
         </div>
         <div className={styles.bottom}>
-          <span className={styles.price}>${price}</span>
+          <span className={styles.price}>{price}{' ₽'}</span>
           <QuantitySelector
             value={quantity}
             onChange={(newQty) => updateQuantity(id, color, size, newQty)}

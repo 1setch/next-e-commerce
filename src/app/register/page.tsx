@@ -38,10 +38,10 @@ const RegisterPage = () => {
     <section>
       <Container>
         <div className={styles.register}>
-          <h2>Create Account</h2>
+          <h2>Создание аккаунта</h2>
           <form onSubmit={handleSubmit} className={styles.form}>
             <Input
-              placeholder="Name"
+              placeholder="Имя пользователя"
               value={name}
               onChange={(e) => setName(e.target.value)}
               fullWidth
@@ -56,17 +56,17 @@ const RegisterPage = () => {
             />
             <Input
               type="password"
-              placeholder="Password"
+              placeholder="Пароль"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               fullWidth
               required
             />
             {error && <p className={styles.error}>{error}</p>}
-            <Button type="submit">Create Account</Button>
+            <Button type="submit">Зарегистрироваться</Button>
           </form>
           <p className={styles.loginLink}>
-            Already have an account? <Link href="/login">Sign In</Link>
+            Уже есть аккаунт? <Link href="/login">Вход</Link>
           </p>
         </div>
       </Container>

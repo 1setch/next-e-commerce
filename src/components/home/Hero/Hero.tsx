@@ -27,11 +27,11 @@ const Hero = () => {
 
                         </div>
                         <div className={styles.goals}>
-                            <StatCard value="200+" label="International Brands" />
+                            <StatCard value="200+" label="Брендов" />
                             <div className={styles.hline} />
-                            <StatCard value="2,000+" label="High-Quality Products" />
+                            <StatCard value="2,000+" label="Товаров" />
                             <div className={styles.hline} />
-                            <StatCard value="30,000+" label="Happy Customers" />
+                            <StatCard value="30,000+" label="Покупателей" />
                         </div>
                     </div>
                     <div className={styles.people}>

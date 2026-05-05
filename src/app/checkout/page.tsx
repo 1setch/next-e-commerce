@@ -241,30 +241,30 @@ const CheckoutContent = () => {
                     {/* Правая колонка — итог */}
                     <div className={styles.right}>
                         <div className={styles.summary}>
-                            <h3 className={styles.sectionTitle}>Order Summary</h3>
+                            <h3 className={styles.sectionTitle}>Ваша корзина</h3>
                             <div className={styles.summaryRows}>
                                 <div className={styles.summaryRow}>
-                                    <span>Subtotal</span>
+                                    <span>Товары</span>
                                     <span>${subtotal}</span>
                                 </div>
                                 <div className={styles.summaryRow}>
-                                    <span>Discount (-20%)</span>
+                                    <span>Скидка (-20%)</span>
                                     <span className={styles.discount}>-${discount}</span>
                                 </div>
                                 {promo && (
                                     <div className={styles.summaryRow}>
-                                        <span>Promo "{promo.code}"</span>
+                                        <span>Промокод "{promo.code}"</span>
                                         <span className={styles.discount}>-${promoDiscount}</span>
                                     </div>
                                 )}
                                 <div className={styles.summaryRow}>
-                                    <span>Delivery</span>
+                                    <span>Доставка</span>
                                     <span>{promoDiscount >= baseDelivery ? <s>${baseDelivery}</s> : null} ${delivery}</span>
                                 </div>
                             </div>
                             <hr className={styles.divider} />
                             <div className={`${styles.summaryRow} ${styles.totalRow}`}>
-                                <span>Total</span>
+                                <span>Итого</span>
                                 <span>${total}</span>
                             </div>
                             <Button type="submit" className={styles.payBtn} disabled={loading}>
