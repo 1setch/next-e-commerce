@@ -16,10 +16,11 @@ export interface IOrder {
   _id?: string;
   userId: string;
   items: IOrderItem[];
-  status: 'cart' | 'pending' | 'paid' | 'shipped' | 'delivered';
+  status: 'cart' | 'paid' | 'shipped' | 'delivered';
   address?: {
     name: string;
     phone: string;
+    email: string;      // ← добавить
     city: string;
     street: string;
     zip: string;
@@ -45,15 +46,16 @@ const OrderSchema = new Schema<IOrder>(
     ],
     status: {
       type: String,
-      enum: ['cart', 'pending', 'paid', 'shipped', 'delivered'],
+      enum: ['cart', 'paid', 'shipped', 'delivered'],
       default: 'cart',
     },
     address: {
-      name: String,
-      phone: String,
-      city: String,
-      street: String,
-      zip: String,
+      name: { type: String },
+      phone: { type: String },
+      email: { type: String },    // ← добавить
+      city: { type: String },
+      street: { type: String },
+      zip: { type: String },
     },
     totalPrice: { type: Number, default: 0 },
   },

@@ -9,15 +9,15 @@ import { QuestionsTab } from '@/components/admin/QuestionsTab/QuestionsTab';
 
 const AdminPage = () => {
     const [activeView, setActiveView] = useState<'products' | 'orders' | 'questions'>('products');
-    
+
     const [orders, setOrders] = useState<any[]>([]);
     const [questions, setQuestions] = useState<any[]>([]);
     const [ordersCount, setOrdersCount] = useState(0);
     const [pendingQuestionsCount, setPendingQuestionsCount] = useState(0);
-    
+
     const [isLoadingOrders, setIsLoadingOrders] = useState(false);
     const [isLoadingQuestions, setIsLoadingQuestions] = useState(false);
-    
+
     // Функция загрузки заказов (всегда загружает свежие данные)
     const loadOrders = useCallback(async (force = false) => {
         setIsLoadingOrders(true);
@@ -34,58 +34,43 @@ const AdminPage = () => {
             setIsLoadingOrders(false);
         }
     }, []);
-    
+
     // Функция загрузки вопросов (всегда загружает свежие данные)
-    const loadQuestions = useCallback(async (force = false) => {
+    const loadQuestions = useCallback(async () => {
         setIsLoadingQuestions(true);
         try {
-            const prods = await fetch('/api/products?limit=100').then(r => r.json());
-            const allQuestions: any[] = [];
-            
-            for (const p of prods.data) {
-                const res = await fetch(`/api/questions?productId=${p._id}`);
-                const qs = await res.json();
-                if (Array.isArray(qs)) {
-                    qs.forEach((q: any) => allQuestions.push({ ...q, productName: p.name }));
-                }
-            }
-            
-            allQuestions.sort((a, b) => {
-                if (a.answer && !b.answer) return 1;
-                if (!a.answer && b.answer) return -1;
-                return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-            });
-            
-            setQuestions(allQuestions);
-            const pendingCount = allQuestions.filter(q => !q.answer).length;
-            setPendingQuestionsCount(pendingCount);
+            const res = await fetch('/api/admin/questions');
+            const allQuestions = await res.json();
+            setQuestions(Array.isArray(allQuestions) ? allQuestions : []);
+            setPendingQuestionsCount(
+                (Array.isArray(allQuestions) ? allQuestions : []).filter((q: any) => !q.answer).length
+            );
         } catch (error) {
             console.error('Failed to fetch questions:', error);
-            setQuestions([]);
         } finally {
             setIsLoadingQuestions(false);
         }
     }, []);
-    
+
     // Предзагрузка при монтировании
     useEffect(() => {
         loadOrders();
         loadQuestions();
     }, []); // Загружаем только один раз при монтировании
-    
+
     // Обновление заказа (оптимистическое)
     const updateOrderStatus = useCallback(async (orderId: string, newStatus: string) => {
         // Оптимистическое обновление
         setOrders(prevOrders => {
-            const updated = prevOrders.map(order => 
-                order._id === orderId 
+            const updated = prevOrders.map(order =>
+                order._id === orderId
                     ? { ...order, status: newStatus }
                     : order
             );
             setOrdersCount(updated.filter(o => o.status === 'paid').length);
             return updated;
         });
-        
+
         // Отправляем запрос
         try {
             await fetch(`/api/admin/orders/${orderId}`, {
@@ -98,20 +83,20 @@ const AdminPage = () => {
             await loadOrders(); // При ошибке перезагружаем
         }
     }, [loadOrders]);
-    
+
     // Обновление вопроса (оптимистическое)
     const updateQuestionAnswer = useCallback(async (questionId: string, answer: string) => {
         // Оптимистическое обновление
         setQuestions(prevQuestions => {
-            const updated = prevQuestions.map(question => 
-                question._id === questionId 
+            const updated = prevQuestions.map(question =>
+                question._id === questionId
                     ? { ...question, answer }
                     : question
             );
             setPendingQuestionsCount(updated.filter(q => !q.answer).length);
             return updated;
         });
-        
+
         // Отправляем запрос
         try {
             await fetch(`/api/questions/${questionId}`, {
@@ -124,12 +109,12 @@ const AdminPage = () => {
             await loadQuestions(); // При ошибке перезагружаем
         }
     }, [loadQuestions]);
-    
+
     // Ручное обновление (принудительная перезагрузка)
     const refreshOrders = useCallback(async () => {
         await loadOrders();
     }, [loadOrders]);
-    
+
     const refreshQuestions = useCallback(async () => {
         await loadQuestions();
     }, [loadQuestions]);
@@ -137,7 +122,7 @@ const AdminPage = () => {
     return (
         <section>
             <Container>
-                <AdminTabs 
+                <AdminTabs
                     activeView={activeView}
                     onViewChange={setActiveView}
                     ordersCount={ordersCount}
@@ -145,10 +130,10 @@ const AdminPage = () => {
                     isLoadingOrders={isLoadingOrders}
                     isLoadingQuestions={isLoadingQuestions}
                 />
-                
+
                 {activeView === 'products' && <ProductsTab />}
                 {activeView === 'orders' && (
-                    <OrdersTab 
+                    <OrdersTab
                         orders={orders}
                         isLoading={isLoadingOrders}
                         onUpdateOrder={updateOrderStatus}
@@ -156,7 +141,7 @@ const AdminPage = () => {
                     />
                 )}
                 {activeView === 'questions' && (
-                    <QuestionsTab 
+                    <QuestionsTab
                         questions={questions}
                         isLoading={isLoadingQuestions}
                         onUpdateAnswer={updateQuestionAnswer}
