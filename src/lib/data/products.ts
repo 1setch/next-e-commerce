@@ -13,6 +13,7 @@ export interface Product {
   rating: number;
   reviewCount: number;
   description: string;
+  details?: string[];
   colors: ProductColor[];
   sizes: string[];
   category: string;
@@ -31,6 +32,7 @@ export const mockProducts: Product[] = [
     rating: 4.5,
     reviewCount: 10,
     description: "Test description",
+    details: ["Test description"],
     colors: [{ name: "Red", hex: "#ff0000" }],
     sizes: ["M"],
     category: "Test",

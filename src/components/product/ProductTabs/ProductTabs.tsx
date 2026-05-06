@@ -23,9 +23,10 @@ interface ProductTabsProps {
   description: string;
   rating: number;
   reviewCount: number;
+  details?: string[];
 }
 
-const ProductTabs = ({ productId, description, rating, reviewCount }: ProductTabsProps) => {
+const ProductTabs = ({ productId, description, rating, reviewCount, details }: ProductTabsProps) => {
   const [activeTab, setActiveTab] = useState<'details' | 'reviews' | 'faq'>('details');
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loadingReviews, setLoadingReviews] = useState(false);
@@ -55,7 +56,7 @@ const ProductTabs = ({ productId, description, rating, reviewCount }: ProductTab
         if (data?.user?.name) setUserName(data.user.name);
         if (data?.user?.image) setUserImage(data.user.image);
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   // Загружаем отзывы
@@ -164,15 +165,18 @@ const ProductTabs = ({ productId, description, rating, reviewCount }: ProductTab
 
       <div className={styles.content}>
         {/* ====== DETAILS ====== */}
+       
+       
         {activeTab === 'details' && (
           <div className={styles.details}>
-            <p>{description}</p>
-            <ul>
-              <li>100% organic cotton</li>
-              <li>Machine washable at 30°C</li>
-              <li>Regular fit</li>
-              <li>Imported</li>
-            </ul>
+            
+            {details && details.length > 0 && (
+              <ul>
+                {details.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            )}
           </div>
         )}
 

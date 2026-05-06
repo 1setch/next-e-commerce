@@ -59,6 +59,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           description={p.description}
           rating={p.rating}
           reviewCount={p.reviewCount}
+          details={p.details}
         />
         <RecommendedProducts category={p.category} currentProductId={p._id} />
       </Container>

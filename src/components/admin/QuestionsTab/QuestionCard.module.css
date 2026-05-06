@@ -1,0 +1,84 @@
+.questionCard {
+  border: 1px solid var(--color-gray-200);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.questionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.questionProduct {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.questionUser {
+  font-size: 13px;
+  color: var(--color-gray-500);
+  margin-left: 8px;
+}
+
+.questionStatus {
+  padding: 4px 12px;
+  border-radius: 62px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.statusAnswered {
+  background: #e6f7e6;
+  color: #15803d;
+}
+
+.statusPending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.questionText {
+  font-size: 14px;
+  color: var(--color-gray-700);
+  margin-bottom: 12px;
+}
+
+.answerBlock {
+  background: #e6f7e6;
+  padding: 14px;
+  border-radius: 10px;
+}
+
+.answerLabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #15803d;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.answerBlock p {
+  margin: 4px 0 0;
+  font-size: 14px;
+}
+
+.answerForm {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.answerForm textarea {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+}

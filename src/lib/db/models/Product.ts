@@ -9,6 +9,7 @@ export interface IProduct {
   rating: number;
   reviewCount: number;
   description: string;
+  details?: string[];
   colors: { name: string; hex: string }[];
   sizes: string[];
   category: string;
@@ -27,12 +28,8 @@ const ProductSchema = new Schema<IProduct>(
     rating: { type: Number, default: 5 },
     reviewCount: { type: Number, default: 0 },
     description: { type: String, required: true },
-    colors: [
-      {
-        name: { type: String },
-        hex: { type: String },
-      },
-    ],
+    details: [{ type: String }],
+    colors: [{ name: { type: String }, hex: { type: String } }],
     sizes: [{ type: String }],
     category: { type: String, required: true },
     isNewProduct: { type: Boolean, default: false },
@@ -40,11 +37,7 @@ const ProductSchema = new Schema<IProduct>(
     images: [{ type: String }],
     createdAt: { type: Date, default: Date.now },
   },
-  {
-    timestamps: true,
-    // Отключаем автоиндексацию текста
-    autoIndex: false,
-  },
+  { timestamps: true, autoIndex: false }
 );
 
 // Удаляем проблемный текстовый индекс если есть

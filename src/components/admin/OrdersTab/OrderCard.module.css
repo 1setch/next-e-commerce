@@ -1,0 +1,148 @@
+.orderCard {
+  border: 1px solid var(--color-gray-200);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.orderHeader:hover {
+  background: var(--color-gray-50);
+}
+
+.orderHeader > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.orderHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.orderId {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.orderStatus {
+  padding: 4px 10px;
+  border-radius: 62px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.status_paid {
+  background: #e6f7e6;
+  color: #15803d;
+}
+
+.status_shipped {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status_delivered {
+  background: #e0e7ff;
+  color: #4338ca;
+}
+
+.orderTotal {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.expandIcon {
+  transition: transform 0.25s;
+  color: var(--color-gray-400);
+}
+
+.expandIconOpen {
+  transform: rotate(180deg);
+}
+
+.orderDetails {
+  border-top: 1px solid var(--color-gray-100);
+  padding: 20px;
+  background: var(--color-gray-50);
+}
+
+.orderDetailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.orderDetailGrid:last-child {
+  margin-bottom: 0;
+}
+
+.detailLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-gray-400);
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
+.statusSelect {
+  padding: 6px 10px;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 8px;
+  font-size: 13px;
+  background: var(--color-white);
+  cursor: pointer;
+}
+
+.orderItemsList {
+  border-top: 1px solid var(--color-gray-200);
+  padding-top: 16px;
+  margin-top: 4px;
+}
+
+.orderItemRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 13px;
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.orderItemRow:last-child {
+  border-bottom: none;
+}
+
+.orderItemThumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.orderItemRow .orderItemName {
+  flex: 1;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.orderItemRow .orderItemPrice {
+  font-weight: 700;
+  flex-shrink: 0;
+}

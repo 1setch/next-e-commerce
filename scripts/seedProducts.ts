@@ -268,14 +268,13 @@ async function seed() {
     console.log('No indexes to drop');
   }
 
-  // Очистить существующие
-  await Product.deleteMany({});
-  console.log('Collection cleared');
+  console.log(`Found ${await Product.countDocuments()} existing products`);
 
-  // Загрузить новые
+  // НЕ очищаем, а добавляем к существующим
   const result = await Product.insertMany(products);
-  console.log(`Loaded ${result.length} products`);
-  
+  console.log(`Added ${result.length} new products`);
+  console.log(`Total products: ${await Product.countDocuments()}`);
+
   process.exit(0);
 }
 
