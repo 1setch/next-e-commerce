@@ -15,7 +15,9 @@ const Hero = () => {
                     <div className={styles.inner}>
                         <div className={styles.info}>
                             <h1 className={styles.title}>
-                                FIND CLOTHES THAT MATCHES YOUR STYLE
+                                ( ДЕМОНСТРАЦ 
+                                ИОНЫЙ  ) 
+                                САЙТ 
                             </h1>
                             <span className={styles.description}>
                                 Ознакомьтесь с нашим разнообразным ассортиментом тщательно сшитой одежды, созданной для того, чтобы подчеркнуть вашу индивидуальность и удовлетворить ваш стиль.

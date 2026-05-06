@@ -32,9 +32,11 @@ export const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) 
                             <td>{product.name}</td>
                             <td>${product.price}</td>
                             <td>{product.category}</td>
-                            <td className={styles.actions}>
-                                <Button variant="ghost" onClick={() => onEdit(product)}>Edit</Button>
-                                <Button variant="ghost" onClick={() => onDelete(product._id)}>Delete</Button>
+                            <td >
+                                <div className={styles.actions}>
+                                    <Button variant="ghost" onClick={() => onEdit(product)}>Edit</Button>
+                                    <Button variant="ghost" onClick={() => onDelete(product._id)}>Delete</Button>
+                                </div>
                             </td>
                         </tr>
                     ))}

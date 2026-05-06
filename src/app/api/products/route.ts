@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
       filter["colors.name"] = { $in: colors };
     }
     if (size) filter.sizes = size;
-    if (search) filter.name = { $regex: search, $options: 'i' };
+    if (search) filter.name = { $regex: search, $options: "i" };
 
     let sortObj: Record<string, 1 | -1> = {};
     switch (sort) {
@@ -72,6 +72,8 @@ export async function GET(request: NextRequest) {
     const cleaned = products.map((p: any) => ({
       ...p,
       _id: String(p._id),
+      isNew: p.isNewProduct, // ← добавить
+      isBestseller: p.isBestseller, // ← это уже есть через ...p
       colors: p.colors.map((c: any) => ({ name: c.name, hex: c.hex })),
     }));
 
