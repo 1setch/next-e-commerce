@@ -1,0 +1,78 @@
+.viewTabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.viewTab {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-gray-400);
+  cursor: pointer;
+  padding: 0 0 12px 0;
+  border-bottom: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.viewTabActive {
+  color: var(--color-black);
+  font-weight: 700;
+  border-bottom-color: var(--color-black);
+}
+
+.badge {
+  background: var(--color-black);
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 62px;
+  min-width: 24px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.badgeLoading {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--color-gray-300);
+  border-top-color: var(--color-black);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .viewTabs {
+    gap: 16px;
+  }
+  
+  .viewTab {
+    font-size: 14px;
+    padding: 0 0 10px 0;
+  }
+  
+  .badge {
+    font-size: 10px;
+    padding: 2px 6px;
+    min-width: 20px;
+  }
+}

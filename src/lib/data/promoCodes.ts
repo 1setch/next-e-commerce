@@ -8,7 +8,7 @@ export interface PromoCode {
 
 export const promoCodes: PromoCode[] = [
   { code: 'WELCOME20', discount: 20, description: '$20 off your first order' },
-  { code: 'FREESHIP', discount: 15, description: 'Free standard delivery' },
+  { code: 'FREE15', discount: 15000, description: 'Free standard delivery' },
   { code: 'SALE10', discount: 10, description: '$10 off any order' },
 ];
 

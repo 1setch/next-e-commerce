@@ -250,14 +250,23 @@
     margin: 2px;
     background: none;
     border: none;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     flex-shrink: 0;
     align-self: center;
     cursor: pointer;
+    padding-inline: 4px;
 
     @media (max-width: 768px) {
         padding: 2px;
+    }
+    button{
+        height: 32px;
+    }
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: var(--border-radius-big)
     }
 
 }
