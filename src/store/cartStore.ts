@@ -77,6 +77,7 @@ export const useCartStore = create<CartState>()(
               ),
           ),
         }));
+        get().syncToServer(); // ← добавить
       },
 
       updateQuantity: (productId, color, size, quantity) => {
@@ -91,11 +92,16 @@ export const useCartStore = create<CartState>()(
               : i,
           ),
         }));
+        get().syncToServer(); // ← добавить
       },
 
       setItems: (items) => set({ items }),
 
-      clearCart: () => set({ items: [] }),
+      clearCart: () => {
+        set({ items: [] });
+        // Немедленно отправляем пустую корзину на сервер
+        get().syncToServer();
+      },
 
       totalPrice: () => {
         return get().items.reduce(
@@ -115,30 +121,28 @@ export const useCartStore = create<CartState>()(
           const res = await fetch("/api/cart");
           if (res.ok) {
             const data = await res.json();
-            if (data.items && data.items.length > 0) {
-              // Сервер — источник правды
+            // Загружаем с сервера только если локально пусто
+            if (
+              data.items &&
+              data.items.length > 0 &&
+              get().items.length === 0
+            ) {
               set({ items: data.items });
             }
           }
-        } catch {
-          // Не авторизован
-        }
+        } catch {}
       },
 
       syncToServer: async () => {
         try {
           const items = get().items;
           const totalPrice = get().totalPrice();
-          const res = await fetch("/api/cart", {
+          await fetch("/api/cart", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ items, totalPrice }),
           });
-          if (res.ok) {
-            const data = await res.json();
-            // Синхронизируем локальное с серверным
-            set({ items: data.items });
-          }
+          // НЕ перезаписываем стейт — он уже правильный
         } catch {
           // Не авторизован
         }
