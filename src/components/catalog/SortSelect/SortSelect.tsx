@@ -16,7 +16,7 @@ const sortOptions = [
 const SortSelect = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const currentSort = searchParams.get('sort') || 'newest';
+  const currentSort = searchParams.get('sort') || 'popular';
   
   const selectedOption = sortOptions.find((o) => o.value === currentSort) || sortOptions[1];
   const [isOpen, setIsOpen] = useState(false);

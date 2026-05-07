@@ -69,7 +69,7 @@ const ProductInfo = ({
             <div>
                 <h3 className={styles.title}>{name}</h3>
                 <div className={styles.rating}>
-                    {'★'.repeat(Math.floor(rating))}{'☆'.repeat(5 - Math.floor(rating))} {rating}/5
+                    <span className={styles.ratingBtn}>{'★'.repeat(Math.floor(rating))}{'☆'.repeat(5 - Math.floor(rating))} </span>{rating}
                     <span className={styles.reviewCount}>({reviewCount} отзывов)</span>
                 </div>
 

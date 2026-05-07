@@ -13,6 +13,7 @@ import Pagination from '@/components/catalog/Pagination/Pagination';
 import Button from '@/components/ui/Button/Button';
 import { Product } from '@/lib/data/products';
 import styles from './page.module.css';
+import CatalogLoading from './loading';
 
 interface ProductsResponse {
     data: Product[];
@@ -73,12 +74,7 @@ function CatalogContent() {
 
     if (isLoading) {
         return (
-            <section>
-                <Container>
-                    <Breadcrumbs items={[{ label: 'Каталог' }]} />
-                    <div className={styles.loading}>Loading...</div>
-                </Container>
-            </section>
+            <CatalogLoading />
         );
     }
 
@@ -105,7 +101,7 @@ function CatalogContent() {
 
                 <div className={styles.topBar}>
                     <h2 className={styles.title}>
-                        {searchQuery ? `Search results for "${searchQuery}"` : 'Catalog'}
+                        {searchQuery ? `Результаты по запросу "${searchQuery}"` : 'Каталог'}
                     </h2>
                     <div className={styles.topRight}>
                         {searchParams.toString() && (
@@ -158,7 +154,11 @@ function CatalogContent() {
                                     id={product._id.toString()}
                                     name={product.name}
                                     rating={String(product.rating)}
-                                    price={String(product.discountPrice ?? product.price)}
+                                    price={String(
+                                        product.discountPrice && product.discountPrice > 0
+                                            ? product.discountPrice
+                                            : product.price
+                                    )}
                                     discountPrice={product.discountPrice}
                                     originalPrice={product.price}
                                     image={product.images?.[0]}

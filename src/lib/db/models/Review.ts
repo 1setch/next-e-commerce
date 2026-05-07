@@ -8,7 +8,7 @@ export interface IReview {
   userImage?: string;
   productId: string;
   rating: number;
-  text: string;
+  text?: string;
   createdAt?: Date;
 }
 
@@ -19,7 +19,7 @@ const ReviewSchema = new Schema<IReview>(
     userImage: { type: String },
     productId: { type: String, required: true, index: true },
     rating: { type: Number, required: true, min: 1, max: 5 },
-    text: { type: String, required: true },
+    text: { type: String, required: false },
   },
   { timestamps: true }
 );

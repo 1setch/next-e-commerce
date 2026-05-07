@@ -82,7 +82,7 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
   }, [activeTab, productId]);
 
   const handleSubmitReview = async () => {
-    if (!newText.trim()) return;
+    // if (!newText.trim()) return;
 
     setSubmitting(true);
     try {
@@ -93,7 +93,7 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
         body: JSON.stringify({
           productId,
           rating: newRating,
-          text: newText,
+          text: newText || '',
           userName,
           userImage,
         }),
@@ -142,9 +142,9 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
   };
 
   const tabs = [
-    { key: 'details' as const, label: 'Product Details' },
-    { key: 'reviews' as const, label: `Rating & Reviews (${reviewCount})` },
-    { key: 'faq' as const, label: 'FAQs' },
+    { key: 'details' as const, label: 'Подробная информация' },
+    { key: 'reviews' as const, label: `Отзывы и оценки (${reviewCount})` },
+    { key: 'faq' as const, label: 'Вопросы о товаре' },
   ];
 
   return (
@@ -165,11 +165,11 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
 
       <div className={styles.content}>
         {/* ====== DETAILS ====== */}
-       
-       
+
+
         {activeTab === 'details' && (
           <div className={styles.details}>
-            
+
             {details && details.length > 0 && (
               <ul>
                 {details.map((item, i) => (
@@ -189,10 +189,10 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
                 <span className={styles.reviewsStars}>
                   {'★'.repeat(Math.floor(rating))}{'☆'.repeat(5 - Math.floor(rating))}
                 </span>
-                <span className={styles.reviewsCount}>{reviewCount} reviews</span>
+                <span className={styles.reviewsCount}>{reviewCount} Отзыв(а -ов)</span>
               </div>
               <Button variant="outline" onClick={() => setShowForm(!showForm)}>
-                Write a Review
+                Написать отзыв
               </Button>
             </div>
 
@@ -213,23 +213,23 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
                 <textarea
                   value={newText}
                   onChange={(e) => setNewText(e.target.value)}
-                  placeholder="Share your experience..."
+                  placeholder="Поделитись впечатлениями о товаре..."
                   rows={4}
-                  required
+
                 />
                 <div className={styles.reviewFormActions}>
-                  <Button onClick={handleSubmitReview} disabled={submitting || !newText.trim()}>
-                    {submitting ? 'Submitting...' : 'Submit Review'}
+                  <Button onClick={handleSubmitReview} disabled={submitting }>
+                    {submitting ? 'Отправка...' : 'Отправить отзыв'}
                   </Button>
-                  <Button variant="ghost" onClick={() => setShowForm(false)}>Cancel</Button>
+                  <Button variant="ghost" onClick={() => setShowForm(false)}>Отмена</Button>
                 </div>
               </div>
             )}
 
             {loadingReviews ? (
-              <p className={styles.empty}>Loading reviews...</p>
+              <p className={styles.empty}>Загрузка отзывов...</p>
             ) : reviews.length === 0 ? (
-              <p className={styles.empty}>No reviews yet. Be the first!</p>
+              <p className={styles.empty}>На товар пока нет отзывов.</p>
             ) : (
               reviews.map((review) => (
                 <div key={review._id} className={styles.review}>
@@ -264,10 +264,10 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
             <div className={styles.reviewsHeader}>
               <div>
                 <span className={styles.reviewsRatingNum}>{questions.length}</span>
-                <span className={styles.reviewsCount}>questions</span>
+                <span className={styles.reviewsCount}>вопрос(ы -ов)</span>
               </div>
               <Button variant="outline" onClick={() => setShowQuestionForm(!showQuestionForm)}>
-                Ask a Question
+                Задайте вопрос
               </Button>
             </div>
 
@@ -275,7 +275,7 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
               <div className={styles.reviewForm}>
                 {userName === 'User' && (
                   <Input
-                    placeholder="Your name"
+                    placeholder="Ваше имя"
                     value={anonName}
                     onChange={(e) => setAnonName(e.target.value)}
                     fullWidth
@@ -284,23 +284,23 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
                 <textarea
                   value={newQuestion}
                   onChange={(e) => setNewQuestion(e.target.value)}
-                  placeholder="What do you want to know?"
+                  placeholder="Что хотите узнать?"
                   rows={3}
                   required
                 />
                 <div className={styles.reviewFormActions}>
                   <Button onClick={handleSubmitQuestion} disabled={submittingQuestion || !newQuestion.trim()}>
-                    {submittingQuestion ? 'Sending...' : 'Ask Question'}
+                    {submittingQuestion ? 'Отправка...' : 'Задать вопрос'}
                   </Button>
-                  <Button variant="ghost" onClick={() => setShowQuestionForm(false)}>Cancel</Button>
+                  <Button variant="ghost" onClick={() => setShowQuestionForm(false)}>Отмена</Button>
                 </div>
               </div>
             )}
 
             {loadingQuestions ? (
-              <p className={styles.empty}>Loading...</p>
+              <p className={styles.empty}>Загрузка...</p>
             ) : questions.length === 0 ? (
-              <p className={styles.empty}>No questions yet. Be the first!</p>
+              <p className={styles.empty}>Нет вопросов к этому товару))</p>
             ) : (
               questions.map((q) => (
                 <details key={q._id} className={styles.faqItem}>
@@ -311,7 +311,7 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
                   {q.answer ? (
                     <p>{q.answer}</p>
                   ) : (
-                    <p className={styles.faqNoAnswer}>Waiting for an answer...</p>
+                    <p className={styles.faqNoAnswer}>Ожидает ответа от продавца...</p>
                   )}
                 </details>
               ))

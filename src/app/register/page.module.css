@@ -40,3 +40,16 @@
   font-weight: 600;
   text-decoration: underline;
 }
+
+.successMessage {
+  color: var(--color-gray-600);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.link {
+  color: var(--color-black);
+  font-weight: 600;
+  text-decoration: underline;
+}

@@ -19,7 +19,6 @@ async function getUserId(request: NextRequest): Promise<string | null> {
   }
 }
 
-// Получить отзывы для товара
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const productId = searchParams.get('productId');
@@ -38,64 +37,70 @@ export async function GET(request: NextRequest) {
   );
 }
 
-// Создать отзыв
 export async function POST(request: NextRequest) {
   const userId = await getUserId(request);
   if (!userId) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
 
-  const { productId, rating, text, userName, userImage } = await request.json();
+  const body = await request.json();
+  console.log('Review body:', body);
 
-  if (!productId || !rating || !text) {
+  const { productId, rating, text, userName, userImage } = body;
+
+  if (!productId || !rating) {
     return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
   }
 
-  await dbConnect();
+  try {
+    await dbConnect();
 
-  // Проверить что пользователь купил этот товар
-  const order = await Order.findOne({
-    userId,
-    status: { $in: ['paid', 'shipped', 'delivered'] },
-    'items.productId': productId,
-  });
+    const order = await Order.findOne({
+      userId,
+      status: { $in: ['paid', 'shipped', 'delivered'] },
+      'items.productId': productId,
+    });
 
-  if (!order) {
+    if (!order) {
+      return NextResponse.json(
+        { error: 'You can only review products you have purchased' },
+        { status: 403 }
+      );
+    }
+
+    const existing = await Review.findOne({ userId, productId });
+    if (existing) {
+      return NextResponse.json(
+        { error: 'You have already reviewed this product' },
+        { status: 409 }
+      );
+    }
+
+    const review = await Review.create({
+      userId,
+      userName: userName || 'User',
+      userImage: userImage || '',
+      productId,
+      rating,
+      text: text || '',
+    });
+
+    const allReviews = await Review.find({ productId });
+    const avgRating =
+      allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
+
+    await Product.findByIdAndUpdate(productId, {
+      rating: Math.round(avgRating * 10) / 10,
+      reviewCount: allReviews.length,
+    });
+
+    const saved = review.toObject();
+    return NextResponse.json({ ...saved, _id: String(saved._id) }, { status: 201 });
+  } catch (error: any) {
+    console.error('Review creation error:', error.message, error.stack);
     return NextResponse.json(
-      { error: 'You can only review products you have purchased' },
-      { status: 403 }
+      { error: error.message || 'Failed to create review' },
+      { status: 500 }
     );
   }
-
-  // Проверить что ещё не оставлял отзыв
-  const existing = await Review.findOne({ userId, productId });
-  if (existing) {
-    return NextResponse.json(
-      { error: 'You have already reviewed this product' },
-      { status: 409 }
-    );
-  }
-
-  // Создать отзыв
-  const review = await Review.create({
-    userId,
-    userName: userName || 'User',
-    userImage: userImage || '',
-    productId,
-    rating,
-    text,
-  });
-
-  // Обновить рейтинг товара
-  const allReviews = await Review.find({ productId });
-  const avgRating =
-    allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
-
-  await Product.findByIdAndUpdate(productId, {
-    rating: Math.round(avgRating * 10) / 10,
-    reviewCount: allReviews.length,
-  });
-
-  const saved = review.toObject();
-  return NextResponse.json({ ...saved, _id: String(saved._id) }, { status: 201 });
 }

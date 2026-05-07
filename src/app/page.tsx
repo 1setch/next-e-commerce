@@ -26,7 +26,7 @@ export default async function HomePage() {
       <Partners />
       <ProductSection title="НОВИНКИ" products={newArrivals} linkHref="/catalog?isNew=true" />
       <div className={styles.prod_hr} />
-      <ProductSection title="ПОПУЛЯРНОЕ" products={topSelling} linkHref="/catalog?sort=popular" />
+      <ProductSection title="ТОП ПРОДАЖ" products={topSelling} linkHref="/catalog?sort=popular" />
     </div>
   );
 }

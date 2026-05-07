@@ -36,7 +36,10 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
-    console.log("PUT body:", body); // ← проверь что details приходит
+    if (!Array.isArray(body.colors)) body.colors = [];
+    if (!Array.isArray(body.sizes)) body.sizes = [];
+    if (!Array.isArray(body.images)) body.images = [];
+    if (!Array.isArray(body.details)) body.details = [];
 
     const product = await Product.findByIdAndUpdate(id, body, {
       new: true,

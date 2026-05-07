@@ -79,7 +79,6 @@ const ProfilePage = () => {
   };
 
   const handleSave = async () => {
-    console.log('Sending to PUT:', { name, image }); // ← добавь это
     const res = await fetch('/api/auth/me', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -116,10 +115,10 @@ const ProfilePage = () => {
   return (
     <section>
       <Container>
-        <Breadcrumbs items={[{ label: 'Profile' }]} />
+        <Breadcrumbs items={[{ label: 'Профиль' }]} />
 
         <div className={styles.profile}>
-          <h2>My Account</h2>
+          <h2>Мой аккаунт</h2>
 
           {/* Табы */}
           <div className={styles.tabs}>
@@ -127,13 +126,13 @@ const ProfilePage = () => {
               className={`${styles.tab} ${activeTab === 'profile' ? styles.tabActive : ''}`}
               onClick={() => setActiveTab('profile')}
             >
-              Profile
+              Профиль
             </button>
             <button
               className={`${styles.tab} ${activeTab === 'orders' ? styles.tabActive : ''}`}
               onClick={() => setActiveTab('orders')}
             >
-              My Orders
+              Заказы
             </button>
           </div>
 
@@ -152,7 +151,7 @@ const ProfilePage = () => {
                 {editing && (
                   <div className={styles.avatarUpload}>
                     <input type="file" accept="image/*" onChange={handleImageUpload} />
-                    {uploading && <span>Uploading...</span>}
+                    {uploading && <span>Загрузка...</span>}
                   </div>
                 )}
               </div>
@@ -166,48 +165,48 @@ const ProfilePage = () => {
                     fullWidth
                   />
                   <div className={styles.editActions}>
-                    <Button onClick={handleSave}>Save</Button>
-                    <Button variant="outline" onClick={() => setEditing(false)}>Cancel</Button>
+                    <Button onClick={handleSave}>Сохранить</Button>
+                    <Button variant="outline" onClick={() => setEditing(false)}>Отменить</Button>
                   </div>
                 </div>
               ) : (
                 <div className={styles.info}>
                   <div className={styles.row}>
-                    <span className={styles.label}>Name:</span>
+                    <span className={styles.label}>Имя:</span>
                     <span>{user.name || 'Not set'}</span>
                   </div>
                   <div className={styles.row}>
                     <span className={styles.label}>Email:</span>
                     <span>{user.email}</span>
                   </div>
-                  <div className={styles.row}>
-                    <span className={styles.label}>Role:</span>
+                  {/* <div className={styles.row}>
+                    <span className={styles.label}>Роль:</span>
                     <span>{user.role === 'admin' ? 'Administrator' : 'User'}</span>
-                  </div>
+                  </div> */}
                   <Button variant="outline" onClick={() => setEditing(true)} className={styles.editBtn}>
-                    Edit Profile
+                    Редактировать профиль
                   </Button>
                 </div>
               )}
 
               {user?.role === 'admin' && (
                 <Button onClick={() => router.push('/admin')} className={styles.adminBtn}>
-                  Go to Admin Panel
+                  Админ панель
                 </Button>
               )}
 
               <Button variant="ghost" onClick={handleLogout} className={styles.logoutBtn}>
-                Sign Out
+                Выйти из аккаунта
               </Button>
             </>
           ) : (
             /* История заказов */
             <div className={styles.orders}>
               {loadingOrders ? (
-                <p className={styles.emptyText}>Loading orders...</p>
+                <p className={styles.emptyText}>Загрузка заказов...</p>
               ) : orders.length === 0 ? (
                 <div className={styles.emptyOrders}>
-                  <p>You have no orders yet</p>
+                  <p>У вас нет заказов</p>
                   <Button onClick={() => router.push('/catalog')}>Start Shopping</Button>
                 </div>
               ) : (
@@ -215,7 +214,7 @@ const ProfilePage = () => {
                   <div key={order._id} className={styles.orderCard}>
                     <div className={styles.orderHeader}>
                       <div>
-                        <span className={styles.orderId}>Order #{order._id.slice(-6)}</span>
+                        <span className={styles.orderId}>Заказ #{order._id.slice(-6)}</span>
                         <span className={`${styles.orderStatus} ${styles[`status_${order.status}`]}`}>
                           {order.status}
                         </span>
@@ -234,7 +233,7 @@ const ProfilePage = () => {
                               {item.size} | {item.color} | Qty: {item.quantity}
                             </span>
                           </div>
-                          <span className={styles.orderItemPrice}>${item.price * item.quantity}</span>
+                          <span className={styles.orderItemPrice}>{item.price * item.quantity}{" ₽"}</span>
                         </div>
                       ))}
                     </div>
@@ -244,7 +243,7 @@ const ProfilePage = () => {
                           {order.address.city}, {order.address.street}
                         </span>
                       )}
-                      <span className={styles.orderTotal}>Total: ${order.totalPrice}</span>
+                      <span className={styles.orderTotal}>Итого: {order.totalPrice}{" ₽"}</span>
                     </div>
                   </div>
                 ))

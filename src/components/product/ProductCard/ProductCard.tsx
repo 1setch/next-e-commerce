@@ -41,7 +41,7 @@ const ProductCard = ({
       </div>
       <span className={styles.title}>{name}</span>
       <div className={styles.rating}>
-        ⭐ {rating}
+        ★ {rating}
         {hasDiscount && (
           <>
             <span className={styles.discount}>-{discountPercent}%</span>

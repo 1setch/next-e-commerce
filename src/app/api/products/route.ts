@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
     const maxPrice = Number(searchParams.get("maxPrice")) || 999999;
     const color = searchParams.get("color") || "";
     const size = searchParams.get("size") || "";
-    const sort = searchParams.get("sort") || "newest";
+    const sort = searchParams.get("sort") || "popular";
     const search = searchParams.get("search") || "";
 
     const filter: Record<string, unknown> = {};
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
 
     if (isNewProduct === "true") filter.isNewProduct = true;
     if (discount === "true")
-      filter.discountPrice = { $exists: true, $ne: null };
+      filter.discountPrice = { $exists: true, $ne: null, $gt: 0 };
 
     if (category) filter.category = category;
     if (minPrice > 0 || maxPrice < 999999) {

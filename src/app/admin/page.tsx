@@ -60,7 +60,6 @@ const AdminPage = () => {
 
     // Обновление заказа (оптимистическое)
     const updateOrderStatus = useCallback(async (orderId: string, newStatus: string) => {
-        // Оптимистическое обновление
         setOrders(prevOrders => {
             const updated = prevOrders.map(order =>
                 order._id === orderId
@@ -71,16 +70,23 @@ const AdminPage = () => {
             return updated;
         });
 
-        // Отправляем запрос
         try {
-            await fetch(`/api/admin/orders/${orderId}`, {
+            const res = await fetch(`/api/admin/orders/${orderId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus }),
             });
+
+            const data = await res.json();
+            console.log('Update order response:', data);
+
+            if (!res.ok) {
+                console.error('Update order failed:', data);
+                await loadOrders(); // перезагружаем при ошибке
+            }
         } catch (error) {
             console.error('Failed to update order:', error);
-            await loadOrders(); // При ошибке перезагружаем
+            await loadOrders();
         }
     }, [loadOrders]);
 

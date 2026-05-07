@@ -8,15 +8,21 @@ import CartSummary from '@/components/cart/CartSummary/CartSummary';
 import { useCartStore } from '@/store/cartStore';
 import Link from 'next/link';
 import styles from './page.module.css';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 const CartPage = () => {
     const items = useCartStore((state) => state.items);
     const fetchServerCart = useCartStore((state) => state.fetchServerCart);
 
+    // Флаг что корзина только что очищена
+  const [justCleared, setJustCleared] = useState(false);
+
     useEffect(() => {
-        fetchServerCart();
-    }, []); // Только при монтировании
+    // Не загружаем с сервера если только что очистили
+    if (!justCleared) {
+      fetchServerCart();
+    }
+  }, [fetchServerCart, justCleared]);
 
     if (items.length === 0) {
         return (
