@@ -161,7 +161,7 @@ export const ProductForm = ({ initialData, editingId, onSubmit, onCancel }: Prod
                                 checked={form.isNewProduct} 
                                 onChange={(e) => setForm({ ...form, isNewProduct: e.target.checked })} 
                             />
-                            New Arrival
+                            New Arrivalа
                         </label>
                         <label>
                             <input 

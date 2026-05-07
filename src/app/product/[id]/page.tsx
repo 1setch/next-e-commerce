@@ -26,7 +26,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     colors: product.colors.map((c: any) => ({ name: c.name, hex: c.hex })),
     images: product.images || [],
   } as any;
-  const actualPrice = p.discountPrice ?? p.price;
+  const actualPrice = (p.discountPrice && p.discountPrice > 0) ? p.discountPrice : p.price;
 
   return (
     <section>

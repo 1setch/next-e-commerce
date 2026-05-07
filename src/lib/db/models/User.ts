@@ -9,6 +9,8 @@ export interface IUser {
   role: 'user' | 'admin';
   name?: string;
   image?: string;
+  isVerified: boolean;
+  verificationToken?: string;
 }
 
 const UserSchema = new Schema<IUser>(
@@ -18,6 +20,8 @@ const UserSchema = new Schema<IUser>(
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     name: { type: String },
     image: { type: String },
+    isVerified: { type: Boolean, default: false },
+    verificationToken: { type: String },
   },
   { timestamps: true, strict: false }
 );

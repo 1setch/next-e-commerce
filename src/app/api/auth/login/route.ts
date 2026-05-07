@@ -22,6 +22,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
+    if (!user.isVerified) {
+      return NextResponse.json(
+        { error: 'Please verify your email before signing in. Check your inbox.' },
+        { status: 403 }
+      );
+    }
+
     const token = jwt.sign(
       { userId: user._id, role: user.role },
       JWT_SECRET,

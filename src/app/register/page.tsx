@@ -2,7 +2,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Container from '@/components/layout/Container/Container';
 import Button from '@/components/ui/Button/Button';
@@ -14,7 +13,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const router = useRouter();
+  const [registered, setRegistered] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,12 +26,28 @@ const RegisterPage = () => {
     });
 
     if (res.ok) {
-      router.push('/login');
+      setRegistered(true);
     } else {
       const data = await res.json();
       setError(data.error || 'Registration failed');
     }
   };
+
+  if (registered) {
+    return (
+      <section>
+        <Container>
+          <div className={styles.register}>
+            <h2>Проверьте почту</h2>
+            <p className={styles.successMessage}>
+              Мы отправили ссылку для подтверждения на {email}. Пожалуйста, проверьте почту и перейдите по ссылке.
+            </p>
+            <Link href="/login" className={styles.link}>Перейти ко входу</Link>
+          </div>
+        </Container>
+      </section>
+    );
+  }
 
   return (
     <section>

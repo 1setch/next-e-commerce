@@ -8,13 +8,16 @@ import Button from '@/components/ui/Button/Button';
 import Input from '@/components/ui/Input/Input';
 import styles from './page.module.css';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const router = useRouter();
-
+    const searchParams = useSearchParams();
+    const verified = searchParams.get('verified');
+    const errorParam = searchParams.get('error');
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
@@ -38,6 +41,12 @@ const LoginPage = () => {
             <Container>
                 <div className={styles.login}>
                     <h2>Вход</h2>
+                    {verified === 'true' && (
+                        <p className={styles.success}>Email verified! You can now sign in.</p>
+                    )}
+                    {errorParam && (
+                        <p className={styles.error}>Verification link is invalid or expired.</p>
+                    )}
                     <form onSubmit={handleSubmit} className={styles.form}>
                         <Input
                             type="email"

@@ -74,7 +74,7 @@ function CatalogContent() {
 
     if (isLoading) {
         return (
-            <CatalogLoading/>
+            <CatalogLoading />
         );
     }
 
@@ -154,7 +154,11 @@ function CatalogContent() {
                                     id={product._id.toString()}
                                     name={product.name}
                                     rating={String(product.rating)}
-                                    price={String(product.discountPrice ?? product.price)}
+                                    price={String(
+                                        product.discountPrice && product.discountPrice > 0
+                                            ? product.discountPrice
+                                            : product.price
+                                    )}
                                     discountPrice={product.discountPrice}
                                     originalPrice={product.price}
                                     image={product.images?.[0]}

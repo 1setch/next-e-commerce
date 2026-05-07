@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
 
     if (isNewProduct === "true") filter.isNewProduct = true;
     if (discount === "true")
-      filter.discountPrice = { $exists: true, $ne: null };
+      filter.discountPrice = { $exists: true, $ne: null, $gt: 0 };
 
     if (category) filter.category = category;
     if (minPrice > 0 || maxPrice < 999999) {

@@ -19,13 +19,17 @@ const ProductSection = ({ title, products, linkHref }: ProductSectionProps) => {
       <section className={styles.prod_section}>
         <h3 className={styles.title}>{title}</h3>
         <div className={styles.prods}>
-          {products.slice(0,4).map((product) => (
+          {products.slice(0, 4).map((product) => (
             <ProductCard
               key={product._id}
               id={product._id}
               name={product.name}
               rating={String(product.rating)}
-              price={String(product.discountPrice ?? product.price)}
+              price={String(
+                product.discountPrice && product.discountPrice > 0
+                  ? product.discountPrice
+                  : product.price
+              )}
               discountPrice={product.discountPrice}
               originalPrice={product.price}
               image={product.images?.[0]}

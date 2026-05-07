@@ -51,7 +51,7 @@ const FiltersSidebar = ({ isOpen }: FiltersSidebarProps) => {
         if (localColor.length > 0) params.set('color', localColor.join(','));
         if (localSize) params.set('size', localSize);
         if (localMinPrice > 0) params.set('minPrice', String(localMinPrice));
-        if (localMaxPrice < 500) params.set('maxPrice', String(localMaxPrice));
+        if (localMaxPrice < 10000) params.set('maxPrice', String(localMaxPrice));
 
         params.set('page', '1');
 
