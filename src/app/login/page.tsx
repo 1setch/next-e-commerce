@@ -1,7 +1,7 @@
 // app/login/page.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import Container from '@/components/layout/Container/Container';
 import Button from '@/components/ui/Button/Button';
@@ -9,8 +9,9 @@ import Input from '@/components/ui/Input/Input';
 import styles from './page.module.css';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+export const dynamic = 'force-dynamic';
 
-const LoginPage = () => {
+const LoginContent = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -74,4 +75,11 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+// Основной экспорт
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
+  );
+}

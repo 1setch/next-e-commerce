@@ -68,7 +68,7 @@ const FiltersSidebar = ({ isOpen }: FiltersSidebarProps) => {
         setLocalColor([]);
         setLocalSize('');
         setLocalMinPrice(0);
-        setLocalMaxPrice(500);
+        setLocalMaxPrice(10000);
 
         const params = new URLSearchParams();
         const currentSearch = searchParams.get('search');
@@ -83,7 +83,7 @@ const FiltersSidebar = ({ isOpen }: FiltersSidebarProps) => {
         );
     };
 
-    const hasFilters = localCategory || localColor.length > 0 || localSize || localMinPrice > 0 || localMaxPrice < 500;
+    const hasFilters = localCategory || localColor.length > 0 || localSize || localMinPrice > 0 || localMaxPrice < 10000;
 
     return (
         <aside className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}>
