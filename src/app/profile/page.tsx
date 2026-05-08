@@ -90,7 +90,7 @@ const ProfilePage = () => {
       console.log('Saved user:', data.user); // ← вот сюда
       setUser(data.user);
       setEditing(false);
-      addToast('Profile updated!', 'success');
+      addToast('Профиль обновлен!', 'success');
     }
   };
 
@@ -230,7 +230,7 @@ const ProfilePage = () => {
                           <div className={styles.orderItemInfo}>
                             <span className={styles.orderItemName}>{item.name}</span>
                             <span className={styles.orderItemMeta}>
-                              {item.size} | {item.color} | Qty: {item.quantity}
+                              {item.size} | {item.color} | Количество: {item.quantity}
                             </span>
                           </div>
                           <span className={styles.orderItemPrice}>{item.price * item.quantity}{" ₽"}</span>

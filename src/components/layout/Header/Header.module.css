@@ -66,6 +66,10 @@
     }
 }
 
+.promoHidden {
+    display: none;
+}
+
 .promo {
     width: 100%;
     color: var(--color-white);
@@ -85,8 +89,9 @@
         height: 32px;
     }
 
-    span {
+    a {
         text-decoration: underline;
+        color: #fff;
     }
 
     .text {
@@ -260,7 +265,8 @@
     @media (max-width: 768px) {
         padding: 2px;
     }
-    button{
+
+    button {
         height: 32px;
     }
 

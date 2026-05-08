@@ -129,12 +129,12 @@ export const ProductsTab = () => {
             {/* Верхняя панель */}
             <div className={styles.toolbar}>
                 <Button onClick={() => { setEditData(null); setEditingId(null); setShowForm(true); }}>
-                    Add Product
+                    Добавить товар
                 </Button>
 
                 <div className={styles.filters}>
                     <Input
-                        placeholder="Search products..."
+                        placeholder="Найти товар..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
@@ -143,7 +143,7 @@ export const ProductsTab = () => {
                         onChange={(e) => setCategoryFilter(e.target.value)}
                         className={styles.categorySelect}
                     >
-                        <option value="">All Categories</option>
+                        <option value="">Все категории</option>
                         {categories.map((cat) => (
                             <option key={cat} value={cat}>{cat}</option>
                         ))}
@@ -151,7 +151,7 @@ export const ProductsTab = () => {
                 </div>
 
                 <span className={styles.count}>
-                    {filtered.length} products
+                    {filtered.length} товаров
                     {categoryFilter && ` in ${categoryFilter}`}
                     {search && ` matching "${search}"`}
                 </span>

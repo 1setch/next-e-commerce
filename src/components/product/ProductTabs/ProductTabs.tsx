@@ -105,13 +105,13 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
         setShowForm(false);
         setNewText('');
         setNewRating(5);
-        addToast('Review submitted!', 'success');
+        addToast('Отзыв отправлен!', 'success');
       } else {
         const data = await res.json();
         addToast(data.error || 'Failed to submit review', 'error');
       }
     } catch {
-      addToast('Something went wrong', 'error');
+      addToast('Что-то пошло не так', 'error');
     } finally {
       setSubmitting(false);
     }
@@ -134,9 +134,9 @@ const ProductTabs = ({ productId, description, rating, reviewCount, details }: P
       setNewQuestion('');
       setAnonName('');
       setShowQuestionForm(false);
-      addToast('Question submitted!', 'success');
+      addToast('Вопрос отправлен!', 'success');
     } else {
-      addToast('Failed to submit question', 'error');
+      addToast('Ошибка при отправке запроса', 'error');
     }
     setSubmittingQuestion(false);
   };
