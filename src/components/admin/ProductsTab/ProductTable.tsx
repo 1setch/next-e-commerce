@@ -16,11 +16,11 @@ export const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) 
             <table className={styles.table}>
                 <thead>
                     <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Actions</th>
+                        <th>Превью</th>
+                        <th>Название</th>
+                        <th>Цена</th>
+                        <th>Категория</th>
+                        <th>Действия</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,12 +30,12 @@ export const ProductTable = ({ products, onEdit, onDelete }: ProductTableProps) 
                                 <img src={product.images[0] || '/shirt.png'} alt="" width={50} height={50} />
                             </td>
                             <td>{product.name}</td>
-                            <td>${product.price}</td>
+                            <td>{product.price}{' ₽'}</td>
                             <td>{product.category}</td>
                             <td >
                                 <div className={styles.actions}>
-                                    <Button variant="ghost" onClick={() => onEdit(product)}>Edit</Button>
-                                    <Button variant="ghost" onClick={() => onDelete(product._id)}>Delete</Button>
+                                    <Button variant="ghost" onClick={() => onEdit(product)}>Редактировать</Button>
+                                    <Button variant="ghost" onClick={() => onDelete(product._id)}>Удалить</Button>
                                 </div>
                             </td>
                         </tr>

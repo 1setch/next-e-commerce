@@ -25,13 +25,13 @@ export const AdminTabs = ({
                 className={`${styles.viewTab} ${activeView === 'products' ? styles.viewTabActive : ''}`}
                 onClick={() => onViewChange('products')}
             >
-                Products
+                Товары
             </button>
             <button
                 className={`${styles.viewTab} ${activeView === 'orders' ? styles.viewTabActive : ''}`}
                 onClick={() => onViewChange('orders')}
             >
-                Orders 
+                Заказы 
                 {isLoadingOrders ? (
                     <span className={styles.badgeLoading}>
                         <span className={styles.spinner}></span>
@@ -44,7 +44,7 @@ export const AdminTabs = ({
                 className={`${styles.viewTab} ${activeView === 'questions' ? styles.viewTabActive : ''}`}
                 onClick={() => onViewChange('questions')}
             >
-                Questions
+                Вопросы
                 {isLoadingQuestions ? (
                     <span className={styles.badgeLoading}>
                         <span className={styles.spinner}></span>

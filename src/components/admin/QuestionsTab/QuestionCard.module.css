@@ -71,6 +71,10 @@
   display: flex;
   gap: 12px;
   align-items: flex-end;
+
+  button{
+    max-width: 50%;
+  }
 }
 
 .answerForm textarea {

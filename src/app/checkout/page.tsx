@@ -45,7 +45,7 @@ const CheckoutContent = () => {
     const promo = promoCode ? validatePromo(promoCode) : null;
 
     const subtotal = totalPrice();
-    const baseDelivery = deliveryMethod === 'express' ? 25 : 15;
+    const baseDelivery = deliveryMethod === 'express' ? 750 : 550;
     const promoDiscount = promo?.discount || 0;
     const delivery = Math.max(0, baseDelivery - promoDiscount);
     const discount = Math.round(subtotal * 0.2);
@@ -70,13 +70,13 @@ const CheckoutContent = () => {
 
             if (res.ok) {
                 clearCart();
-                addToast('Order placed successfully!', 'success');
+                addToast('Заказ оформлен!', 'success');
                 router.push('/profile?order=success');
             } else {
-                addToast('Failed to place order', 'error');
+                addToast('Ошибка оформления заказа', 'error');
             }
         } catch {
-            addToast('Something went wrong', 'error');
+            addToast('Что-то пошло не так', 'error');
         } finally {
             setLoading(false);
         }
@@ -88,8 +88,8 @@ const CheckoutContent = () => {
                 <Container>
                     <Breadcrumbs items={[{ label: 'Оплата' }]} />
                     <div className={styles.empty}>
-                        <h2>Your cart is empty</h2>
-                        <Button onClick={() => router.push('/catalog')}>Continue Shopping</Button>
+                        <h2>Ваша корзина пуста</h2>
+                        <Button onClick={() => router.push('/catalog')}>Перейти в каталог</Button>
                     </div>
                 </Container>
             </section>
@@ -108,17 +108,17 @@ const CheckoutContent = () => {
                     <div className={styles.left}>
                         {/* Адрес доставки */}
                         <div className={styles.section}>
-                            <h3 className={styles.sectionTitle}>Delivery Address</h3>
+                            <h3 className={styles.sectionTitle}>Адрес доставки</h3>
                             <div className={styles.formGrid}>
                                 <Input
-                                    placeholder="Full Name"
+                                    placeholder="Полное ФИО"
                                     value={address.name}
                                     onChange={(e) => setAddress({ ...address, name: e.target.value })}
                                     fullWidth
                                     required
                                 />
                                 <Input
-                                    placeholder="Phone"
+                                    placeholder="Номер телефона"
                                     type="tel"
                                     value={address.phone}
                                     onChange={(e) => setAddress({ ...address, phone: e.target.value })}
@@ -134,21 +134,21 @@ const CheckoutContent = () => {
                                     required
                                 />
                                 <Input
-                                    placeholder="City"
+                                    placeholder="Город"
                                     value={address.city}
                                     onChange={(e) => setAddress({ ...address, city: e.target.value })}
                                     fullWidth
                                     required
                                 />
                                 <Input
-                                    placeholder="Street Address"
+                                    placeholder="Адресс"
                                     value={address.street}
                                     onChange={(e) => setAddress({ ...address, street: e.target.value })}
                                     fullWidth
                                     required
                                 />
                                 <Input
-                                    placeholder="ZIP Code"
+                                    placeholder="Почтовый индекс"
                                     value={address.zip}
                                     onChange={(e) => setAddress({ ...address, zip: e.target.value })}
                                     fullWidth
@@ -159,7 +159,7 @@ const CheckoutContent = () => {
 
                         {/* Способ доставки */}
                         <div className={styles.section}>
-                            <h3 className={styles.sectionTitle}>Delivery Method</h3>
+                            <h3 className={styles.sectionTitle}>Метод доставки</h3>
                             <div className={styles.radioGroup}>
                                 <label className={`${styles.radioLabel} ${deliveryMethod === 'standard' ? styles.radioActive : ''}`}>
                                     <input
@@ -169,8 +169,8 @@ const CheckoutContent = () => {
                                         onChange={() => setDeliveryMethod('standard')}
                                     />
                                     <div>
-                                        <span className={styles.radioTitle}>Standard Delivery</span>
-                                        <span className={styles.radioDesc}>3-5 business days — $15</span>
+                                        <span className={styles.radioTitle}>Почта России</span>
+                                        <span className={styles.radioDesc}>3-5 рабочих дней</span>
                                     </div>
                                 </label>
                                 <label className={`${styles.radioLabel} ${deliveryMethod === 'express' ? styles.radioActive : ''}`}>
@@ -181,8 +181,8 @@ const CheckoutContent = () => {
                                         onChange={() => setDeliveryMethod('express')}
                                     />
                                     <div>
-                                        <span className={styles.radioTitle}>Express Delivery</span>
-                                        <span className={styles.radioDesc}>1-2 business days — $25</span>
+                                        <span className={styles.radioTitle}>СДЭК</span>
+                                        <span className={styles.radioDesc}>1-2 рабочих дня</span>
                                     </div>
                                 </label>
                             </div>
@@ -190,7 +190,7 @@ const CheckoutContent = () => {
 
                         {/* Способ оплаты */}
                         <div className={styles.section}>
-                            <h3 className={styles.sectionTitle}>Payment Method</h3>
+                            <h3 className={styles.sectionTitle}>Метод оплаты</h3>
                             <div className={styles.radioGroup}>
                                 <label className={`${styles.radioLabel} ${paymentMethod === 'card' ? styles.radioActive : ''}`}>
                                     <input
@@ -200,8 +200,8 @@ const CheckoutContent = () => {
                                         onChange={() => setPaymentMethod('card')}
                                     />
                                     <div>
-                                        <span className={styles.radioTitle}>Credit Card</span>
-                                        <span className={styles.radioDesc}>Pay with Visa, Mastercard</span>
+                                        <span className={styles.radioTitle}>Банковская карта</span>
+                                        <span className={styles.radioDesc}>Мир, Visa, Mastercard</span>
                                     </div>
                                 </label>
                                 <label className={`${styles.radioLabel} ${paymentMethod === 'cash' ? styles.radioActive : ''}`}>
@@ -212,8 +212,8 @@ const CheckoutContent = () => {
                                         onChange={() => setPaymentMethod('cash')}
                                     />
                                     <div>
-                                        <span className={styles.radioTitle}>Cash on Delivery</span>
-                                        <span className={styles.radioDesc}>Pay when you receive</span>
+                                        <span className={styles.radioTitle}>СБП</span>
+                                        <span className={styles.radioDesc}>Система быстрых платежей</span>
                                     </div>
                                 </label>
                             </div>
@@ -221,17 +221,17 @@ const CheckoutContent = () => {
 
                         {/* Товары */}
                         <div className={styles.section}>
-                            <h3 className={styles.sectionTitle}>Order Items ({items.length})</h3>
+                            <h3 className={styles.sectionTitle}>Выбранные товары ({items.length})</h3>
                             <div className={styles.items}>
                                 {items.map((item) => (
                                     <div key={`${item.productId}-${item.color}-${item.size}`} className={styles.item}>
                                         <img src={item.image} alt={item.name} className={styles.itemImage} />
                                         <div className={styles.itemInfo}>
                                             <span className={styles.itemName}>{item.name}</span>
-                                            <span className={styles.itemMeta}>Size: {item.size} | Color: {item.color}</span>
-                                            <span className={styles.itemMeta}>Qty: {item.quantity}</span>
+                                            <span className={styles.itemMeta}>Размер: {item.size} | Цвет: {item.color}</span>
+                                            <span className={styles.itemMeta}>Количество: {item.quantity}</span>
                                         </div>
-                                        <span className={styles.itemPrice}>${item.price * item.quantity}</span>
+                                        <span className={styles.itemPrice}>{item.price * item.quantity}{' ₽'}</span>
                                     </div>
                                 ))}
                             </div>
@@ -245,30 +245,30 @@ const CheckoutContent = () => {
                             <div className={styles.summaryRows}>
                                 <div className={styles.summaryRow}>
                                     <span>Товары</span>
-                                    <span>${subtotal}</span>
+                                    <span>{subtotal}{' ₽'}</span>
                                 </div>
                                 <div className={styles.summaryRow}>
                                     <span>Скидка (-20%)</span>
-                                    <span className={styles.discount}>-${discount}</span>
+                                    <span className={styles.discount}>-{discount} {' ₽'}</span>
                                 </div>
                                 {promo && (
                                     <div className={styles.summaryRow}>
                                         <span>Промокод "{promo.code}"</span>
-                                        <span className={styles.discount}>-${promoDiscount}</span>
+                                        <span className={styles.discount}>-{promoDiscount}{' ₽'}</span>
                                     </div>
                                 )}
                                 <div className={styles.summaryRow}>
                                     <span>Доставка</span>
-                                    <span>{promoDiscount >= baseDelivery ? <s>${baseDelivery}</s> : null} ${delivery}</span>
+                                    <span>{promoDiscount >= baseDelivery ? <s>${baseDelivery}</s> : null} {delivery} {' ₽'}</span>
                                 </div>
                             </div>
                             <hr className={styles.divider} />
                             <div className={`${styles.summaryRow} ${styles.totalRow}`}>
                                 <span>Итого</span>
-                                <span>${total}</span>
+                                <span>{total} {' ₽'}</span>
                             </div>
                             <Button type="submit" className={styles.payBtn} disabled={loading}>
-                                {loading ? 'Processing...' : `Pay $${total}`}
+                                {loading ? 'Подождите...' : `Оплатить ${total} ₽`}
                             </Button>
                         </div>
                     </div>

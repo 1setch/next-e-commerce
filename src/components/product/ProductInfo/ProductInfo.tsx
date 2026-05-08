@@ -61,7 +61,7 @@ const ProductInfo = ({
             quantity,
         });
         syncToServer();
-        addToast('Added to cart!', 'success');
+        addToast('Товар добавлен в корзину!', 'success');
     };
 
     return (

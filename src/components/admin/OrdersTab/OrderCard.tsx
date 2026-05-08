@@ -29,7 +29,7 @@ export const OrderCard = ({
                     </span>
                 </div>
                 <div className={styles.orderHeaderRight}>
-                    <span className={styles.orderTotal}>${order.totalPrice}</span>
+                    <span className={styles.orderTotal}>{order.totalPrice}{' ₽'}</span>
                     <svg
                         width="16" height="16" viewBox="0 0 16 16" fill="none"
                         className={`${styles.expandIcon} ${isExpanded ? styles.expandIconOpen : ''}`}
@@ -54,22 +54,22 @@ export const OrderCard = ({
                                 className={styles.statusSelect}
                                 disabled={isUpdating}
                             >
-                                <option value="paid">Paid</option>
-                                <option value="shipped">Shipped</option>
-                                <option value="delivered">Delivered</option>
+                                <option value="paid">Оплачен</option>
+                                <option value="shipped">Отправлен</option>
+                                <option value="delivered">Доставлен</option>
                             </select>
-                            {isUpdating && <span className={styles.updatingIndicator}>Updating...</span>}
+                            {isUpdating && <span className={styles.updatingIndicator}>Обновление статуса...</span>}
                         </div>
                     </div>
 
                     {order.address && (
                         <div className={styles.orderDetailGrid}>
                             <div>
-                                <span className={styles.detailLabel}>Customer</span>
+                                <span className={styles.detailLabel}>Покупатель</span>
                                 <span>{order.address.name}</span>
                             </div>
                             <div>
-                                <span className={styles.detailLabel}>Phone</span>
+                                <span className={styles.detailLabel}>Телефон</span>
                                 <span>{order.address.phone}</span>
                             </div>
                             <div>
@@ -77,21 +77,21 @@ export const OrderCard = ({
                                 <span>{order.address.email}</span>
                             </div>
                             <div>
-                                <span className={styles.detailLabel}>Address</span>
+                                <span className={styles.detailLabel}>Адрес</span>
                                 <span>{order.address.city}, {order.address.street}, {order.address.zip}</span>
                             </div>
                         </div>
                     )}
 
                     <div className={styles.orderItemsList}>
-                        <span className={styles.detailLabel}>Items ({order.items.length})</span>
+                        <span className={styles.detailLabel}>Товары ({order.items.length})</span>
                         {order.items.map((item: any, i: number) => (
                             <div key={i} className={styles.orderItemRow}>
                                 <img src={item.image} alt="" className={styles.orderItemThumb} />
                                 <span className={styles.orderItemName}>{item.name}</span>
                                 <span>{item.size} | {item.color}</span>
                                 <span>×{item.quantity}</span>
-                                <span className={styles.orderItemPrice}>${item.price * item.quantity}</span>
+                                <span className={styles.orderItemPrice}>{item.price * item.quantity}{' ₽'}</span>
                             </div>
                         ))}
                     </div>

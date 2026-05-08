@@ -32,7 +32,7 @@ const CartPage = () => {
                     <h2 className={styles.title}>Ваша корзина</h2>
                     <div className={styles.empty}>
                         <p>Ваша корзина пуста :(</p>
-                        <Link href="/catalog" className={styles.link}>Continue Shopping</Link>
+                        <Link href="/catalog" className={styles.link}>Перейти в каталог</Link>
                     </div>
                 </Container>
             </section>

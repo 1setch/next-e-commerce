@@ -26,13 +26,13 @@ export const QuestionCard = ({
                     <span className={styles.questionUser}>— {question.userName}</span>
                 </div>
                 <span className={`${styles.questionStatus} ${question.answer ? styles.statusAnswered : styles.statusPending}`}>
-                    {question.answer ? 'Answered' : 'Pending'}
+                    {question.answer ? 'Отвечен' : 'Ожидает ответа'}
                 </span>
             </div>
             <p className={styles.questionText}>{question.question}</p>
             {question.answer ? (
                 <div className={styles.answerBlock}>
-                    <span className={styles.answerLabel}>Answer:</span>
+                    <span className={styles.answerLabel}>Отвечено:</span>
                     <p>{question.answer}</p>
                 </div>
             ) : (
@@ -40,7 +40,7 @@ export const QuestionCard = ({
                     <textarea
                         value={answerText}
                         onChange={(e) => onAnswerChange(question._id, e.target.value)}
-                        placeholder="Write an answer..."
+                        placeholder="Напишите ответ..."
                         rows={3}
                         disabled={isAnswering}
                     />
@@ -48,7 +48,7 @@ export const QuestionCard = ({
                         onClick={() => onAnswer(question._id)} 
                         disabled={!answerText?.trim() || isAnswering}
                     >
-                        {isAnswering ? 'Sending...' : 'Answer'}
+                        {isAnswering ? 'Отправка...' : 'Отправить'}
                     </Button>
                 </div>
             )}
