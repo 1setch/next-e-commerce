@@ -31,6 +31,10 @@ const RegisterPage = () => {
       const data = await res.json();
       setError(data.error || 'Registration failed');
     }
+    if (password.length < 6) {
+      setError('Пароль должен быть не менее 6 символов');
+      return;
+    }
   };
 
   if (registered) {

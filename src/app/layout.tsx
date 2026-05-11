@@ -7,9 +7,10 @@ import Toast from "@/components/ui/Toast/Toast";
 import type { Metadata } from "next";
 
 const roboto = Roboto({
-  subsets: ['latin', 'cyrillic'],
-  weight: ['400', '700'],
-  variable: '--font-roboto',
+  subsets: ['latin', 'cyrillic'], // РУС: Поддержка кириллицы
+  weight: ['400', '700'], // Только нужные начертания (меньше веса)
+  variable: '--font-roboto', // CSS-переменная для использования в глобальных стилях
+  display: 'swap', // РУС: swap = текст сначала показывается системным шрифтом, потом подгружается Roboto
 });
 
 export const metadata: Metadata = {
@@ -48,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${roboto.variable}`}>
+    <html lang="ru" className={`${roboto.variable}`}>
 
       <body className={roboto.className}>
         <Providers>
