@@ -45,6 +45,9 @@
   font-size: 14px;
   color: var(--color-gray-700);
   margin-bottom: 12px;
+  max-width: 100%;
+  overflow: hidden;
+  word-break: break-all;
 }
 
 .answerBlock {

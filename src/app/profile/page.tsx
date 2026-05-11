@@ -1,5 +1,5 @@
 // app/profile/page.tsx
-'use client';
+'use client'; // РУС: Клиентский компонент из-за useState, useEffect, useRouter
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -18,6 +18,29 @@ interface UserData {
   image?: string;
 }
 
+// РУС: Тип для товара в заказе
+interface OrderItem {
+  name: string;
+  image: string;
+  size: string;
+  color: string;
+  quantity: number;
+  price: number;
+}
+
+// РУС: Тип для заказа
+interface Order {
+  _id: string;
+  status: string;
+  createdAt: string;
+  items: OrderItem[];
+  totalPrice: number;
+  address?: {
+    city: string;
+    street: string;
+  };
+}
+
 const ProfilePage = () => {
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -26,77 +49,101 @@ const ProfilePage = () => {
   const [image, setImage] = useState('');
   const [uploading, setUploading] = useState(false);
   const [activeTab, setActiveTab] = useState<'profile' | 'orders'>('profile');
-  const [orders, setOrders] = useState<any[]>([]);
+  const [orders, setOrders] = useState<Order[]>([]); // ← РУС: Добавил тип Order[]
   const [loadingOrders, setLoadingOrders] = useState(false);
   const router = useRouter();
   const clearCart = useCartStore((state) => state.clearCart);
   const addToast = useToastStore((state) => state.addToast);
 
-  const fetchUser = () => {
-    fetch('/api/auth/me')
-      .then((res) => {
-        if (res.ok) return res.json();
-        throw new Error('Not authenticated');
-      })
-      .then((data) => {
-        setUser(data.user);
-        setName(data.user.name || '');
-        setImage(data.user.image || '');
-      })
-      .catch(() => router.push('/login'))
-      .finally(() => setLoading(false));
+  // РУС: Вынес получение пользователя в отдельную функцию для переиспользования
+  const fetchUser = async () => {
+    try {
+      const res = await fetch('/api/auth/me');
+      if (!res.ok) throw new Error('Not authenticated');
+      const data = await res.json();
+      setUser(data.user);
+      setName(data.user.name || '');
+      setImage(data.user.image || '');
+    } catch (error) {
+      router.push('/login');
+    } finally {
+      setLoading(false);
+    }
   };
 
+  // РУС: Загрузка профиля при монтировании
   useEffect(() => {
     fetchUser();
-  }, []);
+  }, []); // ← РУС: Пустой массив = один раз при загрузке страницы
 
+  // РУС: Загрузка заказов только когда переключились на вкладку Orders
   useEffect(() => {
     if (activeTab === 'orders') {
-      setLoadingOrders(true);
-      fetch('/api/orders')
-        .then((res) => res.json())
-        .then((data) => setOrders(Array.isArray(data) ? data : []))
-        .finally(() => setLoadingOrders(false));
+      const fetchOrders = async () => {
+        setLoadingOrders(true);
+        try {
+          const res = await fetch('/api/orders');
+          const data = await res.json();
+          setOrders(Array.isArray(data) ? data : []);
+        } catch (error) {
+          console.error('Failed to fetch orders:', error);
+          setOrders([]);
+        } finally {
+          setLoadingOrders(false);
+        }
+      };
+      fetchOrders();
     }
-  }, [activeTab]);
+  }, [activeTab]); // ← РУС: Зависимость от activeTab
 
+  // РУС: Загрузка аватара в Cloudinary
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setUploading(true);
     const formData = new FormData();
-    formData.append('files', file);
+    formData.append('files', file); // ← РУС: Обрати внимание - 'files' (множественное число)
 
-    const res = await fetch('/api/upload', {
-      method: 'POST',
-      body: formData,
-    });
-    const data = await res.json();
-    setImage(data.urls[0]);
-    setUploading(false);
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      setImage(data.urls[0]); // ← РУС: data.urls - массив, берём первый
+    } catch (error) {
+      addToast('Ошибка загрузки изображения', 'error');
+    } finally {
+      setUploading(false);
+    }
   };
 
+  // РУС: Сохранение изменений профиля
   const handleSave = async () => {
-    const res = await fetch('/api/auth/me', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, image }),
-    });
+    try {
+      const res = await fetch('/api/auth/me', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, image }),
+      });
 
-    if (res.ok) {
-      const data: { user: UserData } = await res.json();
-      console.log('Saved user:', data.user); // ← вот сюда
-      setUser(data.user);
-      setEditing(false);
-      addToast('Профиль обновлен!', 'success');
+      if (res.ok) {
+        const data: { user: UserData } = await res.json();
+        setUser(data.user);
+        setEditing(false);
+        addToast('Профиль обновлён!', 'success');
+      } else {
+        addToast('Ошибка при обновлении', 'error');
+      }
+    } catch (error) {
+      addToast('Ошибка сети', 'error');
     }
   };
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' });
-    clearCart();
+    clearCart(); // РУС: Очищаем корзину при выходе
     router.push('/login');
   };
 
@@ -104,7 +151,7 @@ const ProfilePage = () => {
     return (
       <section>
         <Container>
-          <div className={styles.loading}>Loading...</div>
+          <div className={styles.loading}>Загрузка...</div> {/* ← РУС: Перевёл на русский */}
         </Container>
       </section>
     );
@@ -120,7 +167,7 @@ const ProfilePage = () => {
         <div className={styles.profile}>
           <h2>Мой аккаунт</h2>
 
-          {/* Табы */}
+          {/* РУС: Табы переключения */}
           <div className={styles.tabs}>
             <button
               className={`${styles.tab} ${activeTab === 'profile' ? styles.tabActive : ''}`}
@@ -138,9 +185,11 @@ const ProfilePage = () => {
 
           {activeTab === 'profile' ? (
             <>
+              {/* РУС: Секция аватара */}
               <div className={styles.avatarSection}>
                 <div className={styles.avatar}>
                   {image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img src={image} alt="Avatar" />
                   ) : (
                     <div className={styles.avatarPlaceholder}>
@@ -156,39 +205,42 @@ const ProfilePage = () => {
                 )}
               </div>
 
+              {/* РУС: Режим редактирования */}
               {editing ? (
                 <div className={styles.editForm}>
                   <Input
-                    placeholder="Name"
+                    placeholder="Имя"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     fullWidth
                   />
                   <div className={styles.editActions}>
                     <Button onClick={handleSave}>Сохранить</Button>
-                    <Button variant="outline" onClick={() => setEditing(false)}>Отменить</Button>
+                    <Button variant="outline" onClick={() => {
+                      setEditing(false);
+                      setName(user.name || ''); // ← РУС: Сброс изменений
+                      setImage(user.image || '');
+                    }}>Отменить</Button>
                   </div>
                 </div>
               ) : (
                 <div className={styles.info}>
                   <div className={styles.row}>
                     <span className={styles.label}>Имя:</span>
-                    <span>{user.name || 'Not set'}</span>
+                    <span>{user.name || 'Не указано'}</span> {/* ← РУС: Перевёл */}
                   </div>
                   <div className={styles.row}>
                     <span className={styles.label}>Email:</span>
                     <span>{user.email}</span>
                   </div>
-                  {/* <div className={styles.row}>
-                    <span className={styles.label}>Роль:</span>
-                    <span>{user.role === 'admin' ? 'Administrator' : 'User'}</span>
-                  </div> */}
+                  {/* РУС: Роль закомментирована, но может пригодиться для отладки */}
                   <Button variant="outline" onClick={() => setEditing(true)} className={styles.editBtn}>
                     Редактировать профиль
                   </Button>
                 </div>
               )}
 
+              {/* РУС: Админ-панель доступна только админам */}
               {user?.role === 'admin' && (
                 <Button onClick={() => router.push('/admin')} className={styles.adminBtn}>
                   Админ панель
@@ -200,14 +252,14 @@ const ProfilePage = () => {
               </Button>
             </>
           ) : (
-            /* История заказов */
+            /* РУС: История заказов */
             <div className={styles.orders}>
               {loadingOrders ? (
                 <p className={styles.emptyText}>Загрузка заказов...</p>
               ) : orders.length === 0 ? (
                 <div className={styles.emptyOrders}>
                   <p>У вас нет заказов</p>
-                  <Button onClick={() => router.push('/catalog')}>Start Shopping</Button>
+                  <Button onClick={() => router.push('/catalog')}>Начать покупки</Button> {/* ← РУС: Перевёл */}
                 </div>
               ) : (
                 orders.map((order) => (
@@ -216,7 +268,9 @@ const ProfilePage = () => {
                       <div>
                         <span className={styles.orderId}>Заказ #{order._id.slice(-6)}</span>
                         <span className={`${styles.orderStatus} ${styles[`status_${order.status}`]}`}>
-                          {order.status}
+                          {order.status === 'paid' ? 'Оплачен' : 
+                           order.status === 'shipped' ? 'Отправлен' : 
+                           order.status === 'delivered' ? 'Доставлен' : order.status}
                         </span>
                       </div>
                       <span className={styles.orderDate}>
@@ -224,8 +278,9 @@ const ProfilePage = () => {
                       </span>
                     </div>
                     <div className={styles.orderItems}>
-                      {order.items.map((item: any, i: number) => (
+                      {order.items.map((item, i) => (
                         <div key={i} className={styles.orderItem}>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img src={item.image} alt={item.name} className={styles.orderItemImage} />
                           <div className={styles.orderItemInfo}>
                             <span className={styles.orderItemName}>{item.name}</span>
@@ -233,7 +288,9 @@ const ProfilePage = () => {
                               {item.size} | {item.color} | Количество: {item.quantity}
                             </span>
                           </div>
-                          <span className={styles.orderItemPrice}>{item.price * item.quantity}{" ₽"}</span>
+                          <span className={styles.orderItemPrice}>
+                            {item.price * item.quantity} ₽
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -243,7 +300,7 @@ const ProfilePage = () => {
                           {order.address.city}, {order.address.street}
                         </span>
                       )}
-                      <span className={styles.orderTotal}>Итого: {order.totalPrice}{" ₽"}</span>
+                      <span className={styles.orderTotal}>Итого: {order.totalPrice} ₽</span>
                     </div>
                   </div>
                 ))
